@@ -1,0 +1,31 @@
+{
+  "sourceMaps": true,
+  "module": {
+    "type": "commonjs",
+    "strict": true,
+    "strictMode": true,
+    "noInterop": false
+  },
+  "jsc": {
+    "externalHelpers": true,
+    "target": "es5",
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "transform": {
+      "legacyDecorator": true,
+      "decoratorMetadata": false,
+      "react": {
+        "pragma": "React.createElement",
+        "pragmaFrag": "React.Fragment",
+        "runtime": "automatic"
+      }
+    },
+    "keepClassNames": false
+  },
+  "env": {
+    "targets": "> 0.25%, not dead"
+  }
+}
