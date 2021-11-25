@@ -1,10 +1,10 @@
 import React from 'react';
-import TodoList from 'components/TodoList';
-
+// import TodoList from 'components/TodoList';
+import FormTodo from 'components/FormTodo';
 const Todo = () => {
   return (
     <div className='todo-app'>
-      <TodoList />
+      <FormTodo/>
     </div>
   )
 };

@@ -2,6 +2,7 @@ import { Provider } from 'mobx-react'
 import type { AppProps } from 'next/app'
 import { rootStore } from '../stores'
 import '../styles/globals.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

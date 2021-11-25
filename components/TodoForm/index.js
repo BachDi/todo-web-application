@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 function TodoForm(props) {
-  const [input, setInput] = useState(props.edit ? props.edit.value : '');
+  const [input, setInput] = useState(props.edit ? props.edit.value : {});
 
   const inputRef = useRef(null);
 
@@ -10,18 +10,17 @@ function TodoForm(props) {
   });
 
   const handleChange = e => {
-
-    // setInput(e.target.value);
+    setInput(e.target.value);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
 
     props.onSubmit({
-      id: Math.floor(Math.random() * 10000),
+      id: Math.floor(Math.random() * 1000000000) + 1,
       text: input
     });
-    setInput('');
+    setInput({});
   };
 
   return (
@@ -88,7 +87,6 @@ function TodoForm(props) {
           <br/>
           <input
             onChange={handleChange}
-            value='true'
             name='isActive'
             type='checkbox'
             className='todo-input'
@@ -100,60 +98,30 @@ function TodoForm(props) {
           <input
             value='low'
             onChange={handleChange}
-            name='priority'
+            name='text'
             type='radio'
             ref={inputRef}
             id='low'
           />
           <label htmlFor='low' className='todo-label'>Low</label>
           <input
-            value='normal'
+            value='medium'
             onChange={handleChange}
-            name='priority'
+            name='text'
             type='radio'
             ref={inputRef}
-            id='normal'
+            id='medium'
           />
-          <label htmlFor='normal' className='todo-label'>Normal</label>
+          <label htmlFor='medium' className='todo-label'>Medium</label>
           <input
             value='high'
             onChange={handleChange}
-            name='priority'
+            name='text'
             type='radio'
             ref={inputRef}
             id='high'
           />
           <label htmlFor='high' className='todo-label'>High</label>
-          <br/>
-          <label className='todo-label'>Status: </label>
-          <br/>
-          <input
-            value='todo'
-            onChange={handleChange}
-            name='text'
-            type='radio'
-            ref={inputRef}
-            id='todo'
-          />
-          <label htmlFor='todo' className='todo-label'>Todo</label>
-          <input
-            value='doing'
-            onChange={handleChange}
-            name='text'
-            type='radio'
-            ref={inputRef}
-            id='doing'
-          />
-          <label htmlFor='doing' className='todo-label'>Doing</label>
-          <input
-            value='done'
-            onChange={handleChange}
-            name='text'
-            type='radio'
-            ref={inputRef}
-            id='done'
-          />
-          <label htmlFor='done' className='todo-label'>Done</label>
           <br/>
           <button onClick={handleSubmit} className='todo-button'>
             Add todo

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import HomePage from 'components/HomePage'
-import TodoList from 'components/TodoList'
+import ButtonLink from 'components/ButtonLink'
 
 const Home = () => {
   return (
@@ -11,6 +11,8 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomePage />
+      <ButtonLink name="Project" link="/project"/>
+      <ButtonLink name="Task" link="/todo"/>
     </div>
   )
 }
