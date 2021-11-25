@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form'
-import { useHistory } from 'react-router-dom'
 
 const FormTodo = (props) => {
   const [input, setInput] = useState(props.edit ? props.edit.value : '');
@@ -69,7 +68,7 @@ const FormTodo = (props) => {
             Done
           </label>
        </div>
-        <button onClick={handleSubmit} className="todo-button">
+        <button type="submit" className="todo-button">
           Add todo
         </button>
       </form>

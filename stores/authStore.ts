@@ -67,7 +67,7 @@ export default class AuthStore {
         } else {
           this.setAccessToken(token, false)
         }
-        this.getMyUser
+        this.getMyUser()
       }
       router.push(routes.home.value)
     }

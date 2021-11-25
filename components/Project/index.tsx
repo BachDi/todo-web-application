@@ -11,7 +11,7 @@ const Project = () => {
                 <Form>
                   <Form.Group>
                     <Form.Label>Project name:</Form.Label>
-                    <Form.Control type="text" ClassName="form-control" id="usr"></Form.Control>
+                    <Form.Control type="text" className="form-control" id="usr"></Form.Control>
                   </Form.Group>
                   <Button className="mt-2" variant="primary" type="submit">Create new project</Button>
                 </Form>
@@ -30,7 +30,7 @@ const Project = () => {
               <Form>
                 <Form.Group>
                   <Form.Label>Task name:</Form.Label>
-                  <Form.Control type="text" ClassName="form-control" id="usr"></Form.Control>
+                  <Form.Control type="text" className="form-control" id="usr"></Form.Control>
 
                   <Form.Select className="mt-2" aria-label="Default select example">
                     <option>Select User</option>
