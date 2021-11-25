@@ -7,15 +7,12 @@ function TodoList() {
   const [todos, setTodos] = useState([]);
 
   const addTodo = todo => {
-
     const newTodos = [...todos, todo];
-
     setTodos(newTodos);
     console.log(...todos);
   };
 
   const updateTodo = (todoId, newValue) => {
-
     setTodos(prev => prev.map(item => (item.id === todoId ? newValue : item)));
   };
 

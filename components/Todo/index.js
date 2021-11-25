@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import TodoForm from '../TodoForm';
 import { RiCloseCircleLine } from 'react-icons/ri';
 import { TiEdit } from 'react-icons/ti';
 import FormTodo from 'components/FormTodo';
@@ -38,6 +37,15 @@ const Todo = ({ todos, completeTodo, removeTodo, updateTodo }) => {
       <div key={todo.id} onClick={() => completeTodo(todo.id)}>
         {todo.name}
       </div>
+
+      <div key={todo.id} onClick={() => completeTodo(todo.id)}>
+        {todo.description}
+      </div>
+
+      <div key={todo.id} onClick={() => completeTodo(todo.id)}>
+        Project Name
+      </div>
+
       <div className='icons'>
         <RiCloseCircleLine
           onClick={() => removeTodo(todo.id)}
