@@ -24,7 +24,7 @@ export async function getUserDetail() {
 
 export async function signUp(userData: Omit<IUser, 'id'>): Promise<IUser> {
   try {
-    const response = await api.post(`/auth/sign-up`, userData)
+    const response = await api.post(`/auth/signup`, userData)
     return response.data
   } catch (error: any) {
     throw new Error(error?.message)
