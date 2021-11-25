@@ -9,5 +9,4 @@ export enum EServerErrorMessage {
   PASSWORD_INVALID = 'password is not valid',
   JWT_EXPIRED = 'Error verifying token : jwt expired',
   UNAVAILABLE_USER = 'Error verifying token : unavailable user.',
-  EMAIL_FORMAT = 'should match format "email"'
 }

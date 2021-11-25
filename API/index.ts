@@ -1,12 +1,11 @@
-import axios from "axios";
+import axios, { AxiosRequestHeaders } from "axios";
 import { ELocalStorageKeys } from 'constants/enum';
-import { IHeader } from './constants';
 
 export const api = axios.create({
   baseURL:  process.env.API_URL,
 });
 
-export function auth(): IHeader {
+export function auth(): AxiosRequestHeaders {
   if (typeof window === 'undefined') {
     return {}
   }
