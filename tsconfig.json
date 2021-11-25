@@ -19,13 +19,14 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "experimentalDecorators": true,
-    "incremental": true
+    "incremental": true,
+    "noImplicitAny": false
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "components/Todo/index.js", "components/TodoList/index.js", "components/TodoForm/index.js", "components/FormTodo/index.js"  ],
   "exclude": [
     "node_modules"
   ]
