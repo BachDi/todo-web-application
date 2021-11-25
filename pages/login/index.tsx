@@ -33,6 +33,11 @@ const Login = () => {
         />
       </label>
       <br />
+
+      <input type="checkbox" name="isRemember" id="isRemember"/>
+      <label htmlFor="isRemember">Remember account</label>
+      <br />
+
       <input type="submit" value="Submit" />
     </form>
   );
