@@ -1,7 +1,7 @@
 import { api, auth } from 'API'
 import { ITask } from 'interfaces/task'
 
-export async function getTasks(filter?: any): Promise<any> {
+export async function getTasks(filter: any = {}): Promise<any> {
   try {
     const response = await api.get(`/tasks?filter=${JSON.stringify(filter)}`, {
       headers: auth()

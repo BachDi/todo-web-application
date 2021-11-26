@@ -3,6 +3,7 @@ import Todo from '../Todo';
 import FormTodo from 'components/FormTodo';
 import { ITask } from 'interfaces/task';
 import { useStores } from 'stores';
+import { observer } from 'mobx-react';
 
 export interface IToDoListProps {
   projectId: string
@@ -13,12 +14,19 @@ function TodoList(props: IToDoListProps) {
   const { taskStore } = useStores()
   const { tasks } = taskStore
 
+  function getDate(todo: ITask) {
+    return {
+      startDate: new Date(todo?.startDate ?? '') || new Date(),
+      dueDate: new Date(todo?.dueDate ?? '') || new Date()
+    }
+  }
+
   const addTodo = (todo: ITask) => {
-    taskStore.addTask({...todo, projectId, startDate: new Date(todo?.startDate ?? ''), dueDate: new Date(todo?.dueDate ?? '')})
+    taskStore.addTask({...todo, projectId, ...getDate(todo)})
   };
 
-  const updateTodo = (todoId: string, newValue) => {
-    taskStore.editTask(todoId, newValue)
+  const updateTodo = (todoId: string, todoData: ITask) => {
+    taskStore.editTask(todoId, {...todoData, ...getDate(todoData)})
   };
 
   const removeTodo = (id: string) => {
@@ -43,4 +51,4 @@ function TodoList(props: IToDoListProps) {
   );
 }
 
-export default TodoList;
+export default observer(TodoList);

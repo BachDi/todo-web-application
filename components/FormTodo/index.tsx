@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form'
 
 const FormTodo = (props) => {
-  const [input, setInput] = useState(props.edit ? props.edit.value : '');
+  const { edit } = props
   const {
     register,
     handleSubmit,
-    // watch,
     // formState: { errors },
     reset
   } = useForm()
@@ -15,6 +15,10 @@ const FormTodo = (props) => {
   //   setInput(data)
   //   reset()
   // }
+
+  useEffect(() => {
+    reset({...edit, startDate: dayjs(edit?.startDate).format('YYYY-MM-DD'), dueDate: dayjs(edit?.dueDate).format('YYYY-MM-DD')})
+  }, [edit])
   return (
     <div className="form">
       <form onSubmit={handleSubmit(props.onSubmit)}>
@@ -69,7 +73,7 @@ const FormTodo = (props) => {
           </label>
        </div>
         <button type="submit" className="todo-button">
-          Add todo
+          {edit?.id ? 'Update' : 'Add'} todo
         </button>
       </form>
     </div>

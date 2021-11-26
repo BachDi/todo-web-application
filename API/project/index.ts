@@ -1,9 +1,9 @@
 import { IProject } from 'interfaces/project';
 import { api, auth } from 'API'
 
-export async function getProjects(): Promise<any> {
+export async function getProjects(filter?: any): Promise<any> {
   try {
-    const response = await api.get(`/projects/`, {
+    const response = await api.get(`/projects?filter=${JSON.stringify(filter)}`, {
       headers: auth()
     })
     return response.data
@@ -25,7 +25,7 @@ export async function getProjectDetail(projectId: string): Promise<any> {
 
 export async function createProject(project: IProject): Promise<IProject> {
   try {
-    const response = await api.post(`/projects/`, project, {
+    const response = await api.post(`/projects`, project, {
       headers: auth()
     })
     return response.data

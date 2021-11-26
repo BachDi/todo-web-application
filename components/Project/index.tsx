@@ -5,22 +5,37 @@ import { Button, Container, Row, Col, Form, Card, ListGroup } from 'react-bootst
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 import { useStores } from 'stores'
+import { IProject } from 'interfaces/project'
+import { IUser } from 'interfaces/user'
+import uniqBy from 'lodash/uniqBy'
+import { toast } from 'react-toastify'
 
 const Project = () => {
   const [name, setName] = useState('')
-  const [taskName, setTaskName] = useState('')
-  const [seletedProject, chooseProject] = useState('')
-
-  const { projectStore, taskStore } = useStores()
+  const [selectedProject, chooseProject] = useState('')
+  const [selectedUser, chooseUser] = useState('')
+  const [usersInProject, setUsers] = useState<IUser[]>([])
+  console.log(usersInProject)
+  const { projectStore, taskStore, userStore } = useStores()
   const { projects } = projectStore
-  const { tasks } = taskStore
-  console.log('projects', seletedProject)
-  console.log('tasks', tasks)
+  // const { tasks } = taskStore
+  const { users } = userStore
+
+  console.log(selectedUser);
+
 
   function addProject() {
     console.log({ name })
-    createProject({ name })
+    projectStore.addProject({ name })
     setName('')
+  }
+
+  function handleAddUserToProject() {
+    if (usersInProject.findIndex(user => user.id === selectedUser) === -1) {
+      projectStore.addUserToProject(selectedProject, selectedUser)
+    } else {
+      toast.error("User already in project")
+    }
   }
 
   useEffect(() => {
@@ -29,9 +44,22 @@ const Project = () => {
 
   useEffect(() => {
     taskStore.getList(
-      { where: { projectId: seletedProject, isDeleted: { neq: true } },
-      include: [{ relation: 'project' }] })
-  }, [seletedProject])
+      {
+        where: { projectId: selectedProject, isDeleted: { neq: true } },
+        include: [{ relation: 'project' }]
+      })
+    const currentProject: IProject = projects.find(project => project.id === selectedProject) ?? { projectUsers: [] }
+    console.log(currentProject)
+    const userList: (IUser | undefined)[] = (currentProject?.projectUsers ?? []).map(projectUser => projectUser.user).filter(user => user?.username) ?? []
+    setUsers(uniqBy(userList, 'id') as IUser[])
+  }, [selectedProject, projects])
+
+  useEffect(() => {
+    userStore.getList(
+      {
+        where: { isDeleted: { neq: true } },
+      })
+  }, [selectedUser])
 
   return (
     <Container fluid className="w-50 mt-4">
@@ -43,10 +71,10 @@ const Project = () => {
                 <Form.Label>Project name:</Form.Label>
                 <Form.Control
                   type="text"
-                  value={taskName}
+                  value={name}
                   className="form-control"
                   id="usr"
-                  onChange={e => setTaskName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                 ></Form.Control>
               </Form.Group>
               <Button className="mt-2" variant="primary" onClick={addProject}>
@@ -80,55 +108,38 @@ const Project = () => {
             </Button>
           </Card.Title>
           <Card.Body>
-            <div className="todo-app">
-              <TodoList projectId={seletedProject} />
-            </div>
-            {/* <Form>
-              <Form.Group>
-                <Form.Label>Task name:</Form.Label>
-                <Form.Control type="text" value={name} className="form-control" id="usr" onChange={(e) => setName(e.target.value)}></Form.Control>
-                {/* <Form.Select className="mt-2" aria-label="Default select example"> */}
-            {/*
-                  <option>Select Task</option>
-                  {Array.isArray(tasks) && tasks.map((task, index) => {
-                    return (<option key={task.id} value={task.id}>{task.name}</option>)
-                  })} */}
-            {/* <option value="1">Task 1</option>
-                  <option value="2">Task 2</option>
-                  <option value="3">Task 3</option> */}
-            {/* </Form.Select> */}
-            {/* </Form.Group> */}
-            {/* <Button className="mt-2" variant="primary" onClick={addTask()}>Add Task</Button> */}
-            {/* </Form> */}
+           {selectedProject && (<div className="todo-app">
+              <TodoList projectId={selectedProject} />
+            </div>)}
             <Form>
               <Form.Group>
                 <Form.Label>User name:</Form.Label>
-                <Form.Select className="mt-2" aria-label="Default select example">
+                <Form.Select className="mt-2" aria-label="Default select example"
+                  onChange={event => chooseUser(event.target.value)}>
                   <option>Select User</option>
-                  <option value="1">User 1</option>
-                  <option value="2">User 2</option>
-                  <option value="3">User 3</option>
+                  {Array.isArray(users) &&
+                    users.map((user, index) => {
+                      return (
+                        <option key={user.id} value={user.id}>
+                          {user.name ?? user.username}
+                        </option>
+                      )
+                    })}
                 </Form.Select>
               </Form.Group>
-              <Button className="mt-2" variant="primary" type="submit">
+              <Button className="mt-2" variant="primary" onClick={handleAddUserToProject}>
                 Add User
               </Button>
             </Form>
 
-            <ListGroup className="mt-2">
-              {Array.from(Array(5), (_, i) => (
-                <ListGroup.Item key={i} className="d-flex justify-content-sm-between">
-                  <div>
-                    <h5>Eat breakfast</h5>
-                    <p>Go have some breakfast and coffee</p>
-                    <small>John Lemon</small>
+            {Array.isArray(usersInProject) &&
+              usersInProject.map((user, index) => {
+                return (
+                  <div key={user.id}>
+                    {user?.name ?? user?.username ?? ''}
                   </div>
-                  <div>
-                    <Button variant="danger">Delete</Button>
-                  </div>
-                </ListGroup.Item>
-              ))}
-            </ListGroup>
+                )
+              })}
           </Card.Body>
         </Card>
       </Row>

@@ -1,4 +1,6 @@
+import { toast } from 'react-toastify';
 import { createProject, getProjectDetail, getProjects } from 'API/project'
+import { createProjectUser } from 'API/projectUser'
 import { IProject } from 'interfaces/project'
 import { makeAutoObservable } from 'mobx'
 import { RootStore } from 'stores'
@@ -14,7 +16,16 @@ class ProjectStore {
   projectDetail: IProject = {}
 
   async getList() {
-    this.projects = await getProjects()
+    this.projects = await getProjects({
+      include: [
+        {
+          relation: 'projectUsers',
+          scope: {
+            include: [{ relation: 'user' }]
+          }
+        }
+      ]
+    })
   }
 
   async getDetail(id: string) {
@@ -25,6 +36,15 @@ class ProjectStore {
     try {
       const result = await createProject(project)
       this.projects = [...this.projects, result]
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  async addUserToProject(projectId: string, userId: string) {
+    try {
+      const result = await createProjectUser({ projectId, userId })
+      this.getList()
+      toast.success("Add User successfully")
     } catch (error) {
       console.log(error)
     }

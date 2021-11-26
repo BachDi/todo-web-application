@@ -36,7 +36,6 @@ class TaskStore {
   async editTask(taskId, task: ITask) {
     try {
       const result = await updateTask(taskId, task)
-      this.getList()
       toast.success("Edit Task Successfully")
     } catch (error) {
       console.log(error)

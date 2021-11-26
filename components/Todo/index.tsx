@@ -43,7 +43,7 @@ const Todo = (props: ITodoProps) => {
 
   return (
     <>
-      {todoList.map((todo, index) => (
+      {Array.isArray(todoList) && todoList.map((todo, index) => (
         <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'} key={index}>
           <div key={todo.id} onClick={handleClickComplete}>
             {todo.name}
