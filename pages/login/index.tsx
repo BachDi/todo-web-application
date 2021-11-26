@@ -4,10 +4,14 @@ import { useStores } from 'stores'
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [isRemember, setIsRemember] = useState(false)
   const { authStore } = useStores()
   function handleSubmit(e: { preventDefault: () => void }) {
     e.preventDefault()
-    authStore.login({ username, password })
+    authStore.login({ username, password, isRemember })
+  }
+  function toggleRemember() {
+    setIsRemember(!isRemember)
   }
   return (
     <div className="form-container">
@@ -24,7 +28,7 @@ const Login = () => {
         </div>
 
         <div className="checkbox-group">
-          <input type="checkbox" name="isRemember" id="isRemember" />
+          <input type="checkbox" checked={isRemember} onClick={toggleRemember} />
           <label htmlFor="isRemember">Remember account</label>
         </div>
 
