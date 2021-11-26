@@ -1,7 +1,7 @@
 import { IProject } from 'interfaces/project'
 import { api, auth } from 'API'
 
-export async function getProjects(filter?: any): Promise<any> {
+export async function getProjects(filter: any = {}): Promise<any> {
   try {
     const response = await api.get(`/projects?filter=${JSON.stringify(filter)}`, {
       headers: auth()

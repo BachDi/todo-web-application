@@ -14,7 +14,7 @@ class UserStore {
   users: IUser[] = []
   userDetail: IUser = {}
 
-  async getList(filter?: any) {
+  async getList(filter: any = {}) {
     this.users = await getUsers(filter)
   }
 

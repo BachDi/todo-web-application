@@ -1,7 +1,7 @@
 import { api, auth } from 'API'
 import { IUser } from 'interfaces/user'
 
-export async function getUsers(filter?: any): Promise<any> {
+export async function getUsers(filter: any = {}): Promise<any> {
   try {
     const response = await api.get(`/users?filter=${JSON.stringify(filter)}`, {
       headers: auth()

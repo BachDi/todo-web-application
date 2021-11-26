@@ -14,7 +14,7 @@ class TaskStore {
   tasks: ITask[] = []
   taskDetail: ITask = {}
 
-  async getList(filter?: any) {
+  async getList(filter: any = {}) {
     this.tasks = await getTasks(filter)
   }
 

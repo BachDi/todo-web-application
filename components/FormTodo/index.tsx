@@ -66,7 +66,7 @@ const FormTodo = (props) => {
               users.map((user) => {
                 return (
                   <option key={user.id} value={user.id}>
-                    {user.name}
+                    {user?.name ?? user.username}
                   </option>
                 )
               })}
