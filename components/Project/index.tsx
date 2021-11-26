@@ -1,8 +1,15 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import { createProject } from 'API/project'
+import { useState } from 'react'
 import { Button, Container, Row, Col, Form, Card, ListGroup } from 'react-bootstrap'
 
 const Project = () => {
+  const [name, setName] = useState('');
+
+  function addProject() {
+    console.log({name});
+    createProject({name})
+    setName('');
+  }
   return (
     <Container fluid className="w-50 mt-4">
         <Row>
@@ -11,9 +18,9 @@ const Project = () => {
                 <Form>
                   <Form.Group>
                     <Form.Label>Project name:</Form.Label>
-                    <Form.Control type="text" className="form-control" id="usr"></Form.Control>
+                    <Form.Control type="text" value={name} className="form-control" id="usr" onChange={(e) => setName(e.target.value)}></Form.Control>
                   </Form.Group>
-                  <Button className="mt-2" variant="primary" type="submit">Create new project</Button>
+                  <Button className="mt-2" variant="primary" onClick={addProject}>Create new project</Button>
                 </Form>
               </Card.Body>
             </Card>
