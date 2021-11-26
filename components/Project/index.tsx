@@ -17,7 +17,6 @@ const Project = () => {
   console.log(usersInProject)
   const { projectStore, taskStore, userStore } = useStores()
   const { projects } = projectStore
-  // const { tasks } = taskStore
   const { users } = userStore
 
   console.log(selectedUser)
@@ -29,10 +28,10 @@ const Project = () => {
   }
 
   function handleAddUserToProject() {
-    if (usersInProject.find((user) => user.id === selectedUser) === -1) {
-      projectStore.addUserToProject(selectedProject, selectedUser)
-    } else {
+    if (usersInProject.find((user) => user.id === selectedUser)) {
       toast.error('User already in project')
+    } else {
+      projectStore.addUserToProject(selectedProject, selectedUser)
     }
   }
 
