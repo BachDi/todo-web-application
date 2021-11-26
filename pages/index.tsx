@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import HomePage from 'components/HomePage'
 import ButtonLink from 'components/ButtonLink'
+import routes from 'routes'
 
 const Home = () => {
   return (
@@ -11,10 +12,10 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomePage />
-      <ButtonLink name="Project" link="/project" />
-      <ButtonLink name="Task" link="/todo-user" />
-      <ButtonLink name="Sign up" link="/signup" />
-      <ButtonLink name="Log in" link="/login" />
+      <ButtonLink name="Project" link={routes.project.value}/>
+      <ButtonLink name="Task" link={routes.todo.value}/>
+      <ButtonLink name="Sign up" link={routes.signup.value}/>
+      <ButtonLink name="Log in" link={routes.login.value}/>
     </div>
   )
 }

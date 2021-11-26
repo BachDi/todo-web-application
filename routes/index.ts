@@ -4,6 +4,15 @@ const routes = {
   },
   todo: {
     value: '/todo-user'
+  },
+  project: {
+    value: '/project'
+  },
+  signup: {
+    value: '/signup'
+  },
+  login: {
+    value: '/login'
   }
 }
 
