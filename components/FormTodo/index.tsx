@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form'
 import { useStores } from 'stores'
 
 const FormTodo = (props) => {
-  const { projectStore } = useStores()
-  const { projects } = projectStore
+  const { taskStore } = useStores()
+  const { tasks } = taskStore
   const { edit } = props
   const {
     register,
@@ -21,7 +21,7 @@ const FormTodo = (props) => {
   // }
 
   useEffect(() => {
-    projectStore.getList()
+    taskStore.getList()
   }, [])
 
   useEffect(() => {
@@ -44,13 +44,13 @@ const FormTodo = (props) => {
         </div>
         <div>
           <label className="todo-label">Description: </label>
-          <Form.Select className="select-list" aria-label="Default select example" {...register('projectId')}>
-            <option>Select Project</option>
-            {Array.isArray(projects) &&
-              projects.map((project) => {
+          <Form.Select className="select-list" aria-label="Default select example" {...register('parentId')}>
+            <option>Select Parent Task</option>
+            {Array.isArray(tasks) &&
+              tasks.map((task) => {
                 return (
-                  <option key={project.id} value={project.id}>
-                    {project.name}
+                  <option key={task.id} value={task.id}>
+                    {task.name}
                   </option>
                 )
               })}

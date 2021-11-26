@@ -42,10 +42,6 @@ const Project = () => {
   }, [])
 
   useEffect(() => {
-    taskStore.getList({
-      where: { projectId: selectedProject, isDeleted: { neq: true } },
-      include: [{ relation: 'project' }]
-    })
     const currentProject: IProject = (
       Array.isArray(projects)
         ? projects.find((project) => project.id === selectedProject) ?? { projectUsers: [] }

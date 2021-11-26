@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Todo from '../Todo'
 import FormTodo from 'components/FormTodo'
 import { ITask } from 'interfaces/task'
 import { useStores } from 'stores'
 import { observer } from 'mobx-react'
+import dayjs from 'dayjs'
 
 export interface IToDoListProps {
   projectId: string
@@ -11,31 +12,43 @@ export interface IToDoListProps {
 
 function TodoList(props: IToDoListProps) {
   const { projectId } = props
-  const { taskStore } = useStores()
+  const { taskStore, authStore } = useStores()
   const { tasks } = taskStore
-
+  const { user } = authStore
   function getDate(todo: ITask) {
     return {
-      startDate: new Date(todo?.startDate ?? '') || new Date(),
-      dueDate: new Date(todo?.dueDate ?? '') || new Date()
+      startDate: dayjs(todo?.startDate).toDate(),
+      dueDate: dayjs(todo?.dueDate).toDate()
     }
   }
 
-  const addTodo = (todo: ITask) => {
-    taskStore.addTask({ ...todo, projectId, ...getDate(todo) })
+  async function addTodo(todo: ITask) {
+    await taskStore.addTask({ ...todo, projectId, ...getDate(todo), createdBy: user.id })
+    fetchData()
   }
 
-  const updateTodo = (todoId: string, todoData: ITask) => {
-    taskStore.editTask(todoId, { ...todoData, ...getDate(todoData) })
+  async function updateTodo(todoId: string, todoData: ITask) {
+    await taskStore.editTask(todoId, { ...todoData, ...getDate(todoData), updatedAt: new Date() })
+    fetchData()
   }
 
-  const removeTodo = (id: string) => {
+  async function removeTodo(id: string) {
     updateTodo(id, { isDeleted: true })
   }
 
-  const completeTodo = (id: string) => {
+  async function completeTodo(id: string) {
     updateTodo(id, { status: 'done' })
   }
+  async function fetchData() {
+    await taskStore.getList({
+      where: { isDelete: { neq: true }, projectId },
+      include: [{ relation: 'project' }]
+    })
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [projectId])
 
   return (
     <>

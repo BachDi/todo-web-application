@@ -27,13 +27,12 @@ function TodoUser() {
   }
 
   async function updateTodo(todoId: string, todoData: ITask) {
-    await taskStore.editTask(todoId, { ...todoData, ...getDate(todoData) })
+    await taskStore.editTask(todoId, { ...todoData, ...getDate(todoData), updatedAt: new Date() })
     fetchData()
   }
 
   async function removeTodo(id: string) {
     updateTodo(id, { isDeleted: true })
-    fetchData()
   }
 
   async function completeTodo(id: string) {
@@ -46,7 +45,10 @@ function TodoUser() {
 
   async function fetchData() {
     if (user?.id) {
-      await taskStore.getList({ where: { assigneeTo: user.id }, include: [{ relation: 'project' }] })
+      await taskStore.getList({
+        where: { assigneeTo: user.id },
+        include: [{ relation: 'project' }]
+      })
     }
   }
 
