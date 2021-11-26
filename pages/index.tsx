@@ -12,7 +12,7 @@ const Home = () => {
       </Head>
       <HomePage />
       <ButtonLink name="Project" link="/project"/>
-      <ButtonLink name="Task" link="/todo"/>
+      <ButtonLink name="Task" link="/todo-user"/>
       <ButtonLink name="Sign up" link="/signup"/>
       <ButtonLink name="Log in" link="/login"/>
     </div>

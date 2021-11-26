@@ -103,9 +103,6 @@ const Project = () => {
                   )
                 })}
             </Form.Select>
-            <Button variant="danger" className="mt-2">
-              Delete
-            </Button>
           </Card.Title>
           <Card.Body>
            {selectedProject && (<div className="todo-app">

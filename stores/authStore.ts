@@ -69,7 +69,7 @@ export default class AuthStore {
         }
         this.getMyUser()
       }
-      router.push(routes.home.value)
+      router.push(routes.todo.value)
     }
     //*INFO: Catch clause variable type annotation must be 'any' or 'unknown' if specified
     catch (error: any) {

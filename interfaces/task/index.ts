@@ -7,6 +7,8 @@ export interface ITask {
   isActive?: boolean;
   isDeleted?: boolean;
   isComplete?: boolean
+  assigneeTo?: string
+  createdBy?: string
   projectId?: string
   project?: IProject
   createdAt?: Date;

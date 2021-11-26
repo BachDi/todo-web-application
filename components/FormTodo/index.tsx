@@ -30,6 +30,7 @@ const FormTodo = (props) => {
           <label className="todo-label">Description: </label>
           <input className="todo-input" {...register('description')} />
         </div>
+
        <div>
           <label className="todo-label">Start Date: </label>
           <input className="todo-input" type="date" {...register('startDate')} />

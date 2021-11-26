@@ -43,17 +43,17 @@ const Todo = (props: ITodoProps) => {
 
   return (
     <>
-      {Array.isArray(todoList) && todoList.map((todo, index) => (
-        <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'} key={index}>
-          <div key={todo.id} onClick={handleClickComplete}>
+      {(Array.isArray(todoList) && todoList.length > 0) ? todoList.map((todo) => (
+        <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'} key={todo.id}>
+          <div onClick={handleClickComplete}>
             {todo.name}
           </div>
 
-          <div key={todo.id} onClick={handleClickComplete}>
+          <div onClick={handleClickComplete}>
             {todo.description}
           </div>
 
-          <div key={todo.id} onClick={handleClickComplete}>
+          <div onClick={handleClickComplete}>
             {todo?.project?.name ?? ''}
           </div>
 
@@ -74,7 +74,7 @@ const Todo = (props: ITodoProps) => {
             />
           </div>
         </div>
-      ))}
+      )): "There is no task is assigned to you"}
     </>
   )
 }
