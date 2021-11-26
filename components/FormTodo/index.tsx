@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { observer } from 'mobx-react-lite'
 import React, { useEffect } from 'react'
 import { Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
@@ -123,4 +124,4 @@ const FormTodo = (props) => {
   )
 }
 
-export default FormTodo
+export default observer(FormTodo)
