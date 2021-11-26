@@ -13,6 +13,7 @@ export interface ITask {
   projectId?: string
   project?: IProject
   assignee?: IUser
+  parent?: ITask
   createdAt?: Date
   updatedAt?: Date
   startDate?: Date

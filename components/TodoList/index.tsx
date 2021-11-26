@@ -42,7 +42,7 @@ function TodoList(props: IToDoListProps) {
   async function fetchData() {
     await taskStore.getList({
       where: { isDelete: { neq: true }, projectId },
-      include: [{ relation: 'project' }, { relation: 'assignee' }]
+      include: [{ relation: 'project' }, { relation: 'assignee' }, { relation: 'parent' }]
     })
   }
 
