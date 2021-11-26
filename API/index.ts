@@ -1,9 +1,9 @@
-import axios, { AxiosRequestHeaders } from "axios";
-import { ELocalStorageKeys } from 'constants/enum';
+import axios, { AxiosRequestHeaders } from 'axios'
+import { ELocalStorageKeys } from 'constants/enum'
 
 export const api = axios.create({
-  baseURL:  process.env.API_URL,
-});
+  baseURL: process.env.API_URL
+})
 
 export function auth(): AxiosRequestHeaders {
   if (typeof window === 'undefined') {

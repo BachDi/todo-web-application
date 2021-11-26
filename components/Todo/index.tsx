@@ -19,7 +19,7 @@ const Todo = (props: ITodoProps) => {
     name: ''
   })
 
-  const submitUpdate = value => {
+  const submitUpdate = (value) => {
     if (edit?.id) {
       updateTodo(edit.id, value)
       setEdit({
@@ -43,38 +43,34 @@ const Todo = (props: ITodoProps) => {
 
   return (
     <>
-      {(Array.isArray(todoList) && todoList.length > 0) ? todoList.map((todo) => (
-        <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'} key={todo.id}>
-          <div onClick={handleClickComplete}>
-            {todo.name}
-          </div>
+      {Array.isArray(todoList) && todoList.length > 0
+        ? todoList.map((todo) => (
+            <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'} key={todo.id}>
+              <div onClick={handleClickComplete}>{todo.name}</div>
 
-          <div onClick={handleClickComplete}>
-            {todo.description}
-          </div>
+              <div onClick={handleClickComplete}>{todo.description}</div>
 
-          <div onClick={handleClickComplete}>
-            {todo?.project?.name ?? ''}
-          </div>
+              <div onClick={handleClickComplete}>{todo?.project?.name ?? ''}</div>
 
-          <div className="icons">
-            <RiCloseCircleLine onClick={() => removeTodo(todo?.id ?? '')} className="delete-icon" />
-            <TiEdit
-              onClick={() =>
-                setEdit({
-                  id: todo.id,
-                  name: todo.name,
-                  description: todo.description,
-                  dueDate: todo.dueDate,
-                  isActive: todo.isActive,
-                  startDate: todo.startDate
-                })
-              }
-              className="edit-icon"
-            />
-          </div>
-        </div>
-      )): "There is no task is assigned to you"}
+              <div className="icons">
+                <RiCloseCircleLine onClick={() => removeTodo(todo?.id ?? '')} className="delete-icon" />
+                <TiEdit
+                  onClick={() =>
+                    setEdit({
+                      id: todo.id,
+                      name: todo.name,
+                      description: todo.description,
+                      dueDate: todo.dueDate,
+                      isActive: todo.isActive,
+                      startDate: todo.startDate
+                    })
+                  }
+                  className="edit-icon"
+                />
+              </div>
+            </div>
+          ))
+        : 'There is no task is assigned to you'}
     </>
   )
 }

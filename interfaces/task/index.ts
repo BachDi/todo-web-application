@@ -1,18 +1,18 @@
-import { IProject } from './../project/index';
+import { IProject } from './../project/index'
 export interface ITask {
-  id?: string;
-  name?: string;
-  description?: string;
-  status?: string;
-  isActive?: boolean;
-  isDeleted?: boolean;
+  id?: string
+  name?: string
+  description?: string
+  status?: string
+  isActive?: boolean
+  isDeleted?: boolean
   isComplete?: boolean
   assigneeTo?: string
   createdBy?: string
   projectId?: string
   project?: IProject
-  createdAt?: Date;
-  updatedAt?: Date;
-  startDate?: Date;
-  dueDate?: Date;
+  createdAt?: Date
+  updatedAt?: Date
+  startDate?: Date
+  dueDate?: Date
 }

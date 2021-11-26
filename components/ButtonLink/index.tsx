@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
 import React from 'react'
 
 const ButtonLink = (props) => {
   const router = useRouter()
   const handleClick = () => {
-    router.push(props.link);
+    router.push(props.link)
   }
   return (
     <div>

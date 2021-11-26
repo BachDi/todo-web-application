@@ -1,0 +1,44 @@
+{
+  "plugins": ["@typescript-eslint", "unused-imports", "react-hooks", "prettier"],
+  "extends": ["next", "next/core-web-vitals"],
+  "rules": {
+    "react-hooks/exhaustive-deps": "off",
+    "array-callback-return": "warn",
+    "consistent-return": "warn",
+    "no-else-return": ["warn", { "allowElseIf": false }],
+    "no-return-assign": ["warn", "always"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["warn"],
+    "camelcase": ["warn", { "allow": ["^UNSAFE_"] }],
+    "eqeqeq": "warn",
+    "no-floating-decimal": "warn",
+    "no-multi-spaces": "warn",
+    "no-return-await": "warn",
+    "no-self-compare": "warn",
+    "no-throw-literal": "warn",
+    "no-useless-return": "warn",
+    "max-lines": ["warn", 250],
+    "no-undef": "off",
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": [
+      "warn",
+      {
+        "arrowParens": "always",
+        "semi": false,
+        "endOfLine": "lf",
+        "tabWidth": 2,
+        "useTabs": false,
+        "printWidth": 120,
+        "singleQuote": true,
+        "trailingComma": "none",
+        "bracketSpacing": true
+      }
+    ],
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports-ts": "warn",
+    "unused-imports/no-unused-vars-ts": [
+      "warn",
+      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 import { createProject, getProjectDetail, getProjects } from 'API/project'
 import { createProjectUser } from 'API/projectUser'
 import { IProject } from 'interfaces/project'
@@ -42,9 +42,9 @@ class ProjectStore {
   }
   async addUserToProject(projectId: string, userId: string) {
     try {
-      const result = await createProjectUser({ projectId, userId })
+      await createProjectUser({ projectId, userId })
       this.getList()
-      toast.success("Add User successfully")
+      toast.success('Add User successfully')
     } catch (error) {
       console.log(error)
     }

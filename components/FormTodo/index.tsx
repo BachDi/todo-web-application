@@ -1,5 +1,5 @@
-import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import dayjs from 'dayjs'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 const FormTodo = (props) => {
@@ -17,7 +17,11 @@ const FormTodo = (props) => {
   // }
 
   useEffect(() => {
-    reset({...edit, startDate: dayjs(edit?.startDate).format('YYYY-MM-DD'), dueDate: dayjs(edit?.dueDate).format('YYYY-MM-DD')})
+    reset({
+      ...edit,
+      startDate: dayjs(edit?.startDate).format('YYYY-MM-DD'),
+      dueDate: dayjs(edit?.dueDate).format('YYYY-MM-DD')
+    })
   }, [edit])
   return (
     <div className="form">
@@ -31,10 +35,10 @@ const FormTodo = (props) => {
           <input className="todo-input" {...register('description')} />
         </div>
 
-       <div>
+        <div>
           <label className="todo-label">Start Date: </label>
           <input className="todo-input" type="date" {...register('startDate')} />
-       </div>
+        </div>
         <div>
           <label className="todo-label">Due Date: </label>
           <input className="todo-input" type="date" {...register('dueDate')} />
@@ -46,19 +50,19 @@ const FormTodo = (props) => {
         <div>
           <label className="todo-label">Priority: </label>
           <input value="low" name="priority" type="radio" id="low" defaultChecked />
-        <label htmlFor="low" className="todo-label">
-          Low
-        </label>
-        <input value="normal" name="priority" type="radio" id="normal" />
-        <label htmlFor="normal" className="todo-label">
-          Normal
-        </label>
-        <input value="high" name="priority" type="radio" id="high" />
-        <label htmlFor="high" className="todo-label">
-          High
-        </label>
+          <label htmlFor="low" className="todo-label">
+            Low
+          </label>
+          <input value="normal" name="priority" type="radio" id="normal" />
+          <label htmlFor="normal" className="todo-label">
+            Normal
+          </label>
+          <input value="high" name="priority" type="radio" id="high" />
+          <label htmlFor="high" className="todo-label">
+            High
+          </label>
         </div>
-       <div>
+        <div>
           <label className="todo-label">Status: </label>
           <input value="todo" name="text" type="radio" id="todo" defaultChecked />
           <label htmlFor="todo" className="todo-label">
@@ -72,7 +76,7 @@ const FormTodo = (props) => {
           <label htmlFor="done" className="todo-label">
             Done
           </label>
-       </div>
+        </div>
         <button type="submit" className="todo-button">
           {edit?.id ? 'Update' : 'Add'} todo
         </button>

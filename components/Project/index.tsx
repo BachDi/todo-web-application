@@ -1,7 +1,6 @@
-import { createProject, getProjects } from 'API/project'
 import { useState } from 'react'
 import TodoList from 'components/TodoList'
-import { Button, Container, Row, Col, Form, Card, ListGroup } from 'react-bootstrap'
+import { Button, Container, Row, Form, Card } from 'react-bootstrap'
 import { observer } from 'mobx-react'
 import { useEffect } from 'react'
 import { useStores } from 'stores'
@@ -21,8 +20,7 @@ const Project = () => {
   // const { tasks } = taskStore
   const { users } = userStore
 
-  console.log(selectedUser);
-
+  console.log(selectedUser)
 
   function addProject() {
     console.log({ name })
@@ -31,10 +29,10 @@ const Project = () => {
   }
 
   function handleAddUserToProject() {
-    if (usersInProject.findIndex(user => user.id === selectedUser) === -1) {
+    if (usersInProject.find((user) => user.id === selectedUser) === -1) {
       projectStore.addUserToProject(selectedProject, selectedUser)
     } else {
-      toast.error("User already in project")
+      toast.error('User already in project')
     }
   }
 
@@ -43,22 +41,25 @@ const Project = () => {
   }, [])
 
   useEffect(() => {
-    taskStore.getList(
-      {
-        where: { projectId: selectedProject, isDeleted: { neq: true } },
-        include: [{ relation: 'project' }]
-      })
-    const currentProject: IProject = projects.find(project => project.id === selectedProject) ?? { projectUsers: [] }
+    taskStore.getList({
+      where: { projectId: selectedProject, isDeleted: { neq: true } },
+      include: [{ relation: 'project' }]
+    })
+    const currentProject: IProject = (
+      Array.isArray(projects)
+        ? projects.find((project) => project.id === selectedProject) ?? { projectUsers: [] }
+        : { projectUsers: [] }
+    ) as IProject
     console.log(currentProject)
-    const userList: (IUser | undefined)[] = (currentProject?.projectUsers ?? []).map(projectUser => projectUser.user).filter(user => user?.username) ?? []
+    const userList: (IUser | undefined)[] =
+      (currentProject?.projectUsers ?? []).map((projectUser) => projectUser.user).filter((user) => user?.username) ?? []
     setUsers(uniqBy(userList, 'id') as IUser[])
   }, [selectedProject, projects])
 
   useEffect(() => {
-    userStore.getList(
-      {
-        where: { isDeleted: { neq: true } },
-      })
+    userStore.getList({
+      where: { isDeleted: { neq: true } }
+    })
   }, [selectedUser])
 
   return (
@@ -74,7 +75,7 @@ const Project = () => {
                   value={name}
                   className="form-control"
                   id="usr"
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                 ></Form.Control>
               </Form.Group>
               <Button className="mt-2" variant="primary" onClick={addProject}>
@@ -91,11 +92,11 @@ const Project = () => {
             <Form.Select
               className="mt-2"
               aria-label="Default select example"
-              onChange={event => chooseProject(event.target.value)}
+              onChange={(event) => chooseProject(event.target.value)}
             >
               <option>Select Project</option>
               {Array.isArray(projects) &&
-                projects.map((project, index) => {
+                projects.map((project) => {
                   return (
                     <option key={project.id} value={project.id}>
                       {project.name}
@@ -105,17 +106,22 @@ const Project = () => {
             </Form.Select>
           </Card.Title>
           <Card.Body>
-           {selectedProject && (<div className="todo-app">
-              <TodoList projectId={selectedProject} />
-            </div>)}
+            {selectedProject && (
+              <div className="todo-app">
+                <TodoList projectId={selectedProject} />
+              </div>
+            )}
             <Form>
               <Form.Group>
                 <Form.Label>User name:</Form.Label>
-                <Form.Select className="mt-2" aria-label="Default select example"
-                  onChange={event => chooseUser(event.target.value)}>
+                <Form.Select
+                  className="mt-2"
+                  aria-label="Default select example"
+                  onChange={(event) => chooseUser(event.target.value)}
+                >
                   <option>Select User</option>
                   {Array.isArray(users) &&
-                    users.map((user, index) => {
+                    users.map((user) => {
                       return (
                         <option key={user.id} value={user.id}>
                           {user.name ?? user.username}
@@ -130,12 +136,8 @@ const Project = () => {
             </Form>
 
             {Array.isArray(usersInProject) &&
-              usersInProject.map((user, index) => {
-                return (
-                  <div key={user.id}>
-                    {user?.name ?? user?.username ?? ''}
-                  </div>
-                )
+              usersInProject.map((user) => {
+                return <div key={user.id}>{user?.name ?? user?.username ?? ''}</div>
               })}
           </Card.Body>
         </Card>

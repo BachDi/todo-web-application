@@ -1,4 +1,4 @@
-import { IProjectUser } from 'interfaces/projectUser';
+import { IProjectUser } from 'interfaces/projectUser'
 import { api, auth } from 'API'
 
 export async function createProjectUser(projectUser: IProjectUser): Promise<IProjectUser> {

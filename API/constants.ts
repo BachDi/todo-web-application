@@ -1,4 +1,4 @@
-import { EServerErrorMessage } from 'constants/enum';
+import { EServerErrorMessage } from 'constants/enum'
 
 interface IErrorInfo {
   missingProperty: string
@@ -10,7 +10,6 @@ interface IErrorDetails {
   message: EServerErrorMessage | string
   path: string
 }
-
 
 export interface IHeader {
   authorization?: string

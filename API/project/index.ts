@@ -1,4 +1,4 @@
-import { IProject } from 'interfaces/project';
+import { IProject } from 'interfaces/project'
 import { api, auth } from 'API'
 
 export async function getProjects(filter?: any): Promise<any> {

@@ -70,9 +70,8 @@ export default class AuthStore {
         this.getMyUser()
       }
       router.push(routes.todo.value)
-    }
-    //*INFO: Catch clause variable type annotation must be 'any' or 'unknown' if specified
-    catch (error: any) {
+    } catch (error: any) {
+      //*INFO: Catch clause variable type annotation must be 'any' or 'unknown' if specified
       if (error.message === EServerErrorMessage.PASSWORD_INVALID) {
         toast.error('The username or password is incorrect. Please try again')
       } else {

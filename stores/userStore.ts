@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 import { createUser, getUserDetail, getUsers, updateUser } from 'API/user'
 import { IUser } from 'interfaces/user'
 import { makeAutoObservable } from 'mobx'
@@ -26,21 +26,21 @@ class UserStore {
     try {
       const result = await createUser(user)
       this.users = [...this.users, result]
-      toast.success("Create User Successfully")
+      toast.success('Create User Successfully')
     } catch (error) {
       console.log(error)
-      toast.success("Create User Error")
+      toast.success('Create User Error')
     }
   }
 
   async editUser(userId, user: IUser) {
     try {
-      const result = await updateUser(userId, user)
+      await updateUser(userId, user)
       this.getList()
-      toast.success("Edit User Successfully")
+      toast.success('Edit User Successfully')
     } catch (error) {
       console.log(error)
-      toast.success("Edit User Error")
+      toast.success('Edit User Error')
     }
   }
 }
