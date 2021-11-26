@@ -5,8 +5,9 @@ import { useForm } from 'react-hook-form'
 import { useStores } from 'stores'
 
 const FormTodo = (props) => {
-  const { taskStore } = useStores()
+  const { taskStore, userStore } = useStores()
   const { tasks } = taskStore
+  const { users } = userStore
   const { edit } = props
   const {
     register,
@@ -22,6 +23,7 @@ const FormTodo = (props) => {
 
   useEffect(() => {
     taskStore.getList()
+    userStore.getList()
   }, [])
 
   useEffect(() => {
@@ -43,14 +45,28 @@ const FormTodo = (props) => {
           <input className="todo-input" {...register('description')} />
         </div>
         <div>
-          <label className="todo-label">Description: </label>
+          <label className="todo-label">Select Parent Task: </label>
           <Form.Select className="select-list" aria-label="Default select example" {...register('parentId')}>
-            <option>Select Parent Task</option>
+            <option value={undefined}>No Parent Task</option>
             {Array.isArray(tasks) &&
               tasks.map((task) => {
                 return (
                   <option key={task.id} value={task.id}>
                     {task.name}
+                  </option>
+                )
+              })}
+          </Form.Select>
+        </div>
+        <div>
+          <label className="todo-label">Assign To: </label>
+          <Form.Select className="select-list" aria-label="Default select example" {...register('assigneeTo')}>
+            <option value={undefined}>No Assign</option>
+            {Array.isArray(users) &&
+              users.map((user) => {
+                return (
+                  <option key={user.id} value={user.id}>
+                    {user.name}
                   </option>
                 )
               })}

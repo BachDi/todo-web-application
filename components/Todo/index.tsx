@@ -41,6 +41,7 @@ const Todo = (props: ITodoProps) => {
         <div>Task Name</div>
         <div>Description</div>
         <div>Project Name</div>
+        <div>Assignee</div>
         <div>Actions</div>
       </div>
       {Array.isArray(todoList) && todoList.length > 0
@@ -49,6 +50,7 @@ const Todo = (props: ITodoProps) => {
               <div>{todo.name}</div>
               <div>{todo.description}</div>
               <div>{todo?.project?.name ?? ''}</div>
+              <div>{todo?.assignee?.name ?? ''}</div>
               <div className="icons">
                 <TiInputChecked onClick={() => completeTodo(todo?.id ?? '')} />
                 <RiCloseCircleLine onClick={() => removeTodo(todo?.id ?? '')} className="delete-icon" />

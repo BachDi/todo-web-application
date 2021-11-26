@@ -1,3 +1,4 @@
+import { IUser } from 'interfaces/user';
 import { IProject } from './../project/index'
 export interface ITask {
   id?: string
@@ -11,6 +12,7 @@ export interface ITask {
   createdBy?: string
   projectId?: string
   project?: IProject
+  assignee?: IUser
   createdAt?: Date
   updatedAt?: Date
   startDate?: Date

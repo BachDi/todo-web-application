@@ -47,7 +47,7 @@ function TodoUser() {
     if (user?.id) {
       await taskStore.getList({
         where: { assigneeTo: user.id },
-        include: [{ relation: 'project' }]
+        include: [{ relation: 'project' }, { relation: 'assignee' }]
       })
     }
   }
