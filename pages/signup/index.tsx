@@ -5,13 +5,13 @@ const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [address, setAddress] = useState('');
+  const [role, setRole] = useState('');
   // TODO: sẽ làm xác nhận sau // const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
   function handleSubmit(e: { preventDefault: () => void; }) {
     e.preventDefault();
-    signUp({username,password})
+    signUp({username,password,name,role})
+    console.log({username,password,name,role})
   }
   return (
     <form onSubmit={handleSubmit}>
@@ -49,25 +49,24 @@ const SignUp = () => {
       </label>
       <br />
 
-      <label htmlFor="password">
-        address
+      <label htmlFor="role">
+        role
         <input
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          name="address"
-          type="input"
+          value="user"
+          onChange={(e) => setRole(e.target.value)}
+          name="role"
+          type="radio"
+          id="user"
         />
-      </label>
-      <br />
-
-      <label htmlFor="password">
-        phone
+        <label htmlFor="user">User</label>
         <input
-          value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
-          name="phoneNumber"
-          type="input"
+          value="admin"
+          onChange={(e) => setRole(e.target.value)}
+          name="role"
+          type="radio"
+          id="admin"
         />
+        <label htmlFor="admin">Admin</label>
       </label>
       <br />
 
