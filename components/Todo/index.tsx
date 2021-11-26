@@ -49,8 +49,8 @@ const Todo = (props: ITodoProps) => {
             <div className={todo.status === 'done' ? 'todo-row complete' : 'todo-row'} key={todo.id}>
               <div>{todo.name}</div>
               <div>{todo.description}</div>
-              <div>{todo?.project?.name ?? ''}</div>
-              <div>{todo?.assignee?.name ?? ''}</div>
+              <div>{todo?.project?.name ?? 'No Project'}</div>
+              <div>{todo?.assignee?.name ?? 'No One'}</div>
               <div className="icons">
                 <TiInputChecked onClick={() => completeTodo(todo?.id ?? '')} />
                 <RiCloseCircleLine onClick={() => removeTodo(todo?.id ?? '')} className="delete-icon" />
