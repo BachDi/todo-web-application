@@ -8,7 +8,7 @@ const ButtonLink = (props) => {
   }
   return (
     <div>
-      <button onClick={handleClick}>{props.name}</button>
+      <button className="button-basic" onClick={handleClick}>{props.name}</button>
     </div>
   )
 }

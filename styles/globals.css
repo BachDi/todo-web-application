@@ -226,3 +226,24 @@ h1 {
 .checkbox-group input {
   margin: 6px 5px 6px 5px;
 }
+
+.users-container {
+  margin: 10px 0px;
+}
+.user-item {
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.user-item:nth-child(2n+1) {
+  background: pink;
+}
+
+.user-item:nth-child(2n) {
+  background: lightgray;
+}
+.button-basic {
+  background: cadetblue;
+  color: white;
+  border-radius: 10px;
+}

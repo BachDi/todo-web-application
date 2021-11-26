@@ -132,14 +132,20 @@ const Project = () => {
               </Button>
             </Form>
 
-            {Array.isArray(usersInProject) &&
-              usersInProject.map((user) => {
-                return <div key={user.id}>{user?.name ?? user?.username ?? ''}</div>
-              })}
+            <div className="users-container">
+              {Array.isArray(usersInProject) &&
+                usersInProject.map((user) => {
+                  return (
+                    <div className="user-item" key={user.id}>
+                      {user?.name ?? user?.username ?? ''}
+                    </div>
+                  )
+                })}
+            </div>
+            <ButtonLink name="Go to task" link={routes.todo.value} />
           </Card.Body>
         </Card>
       </Row>
-      <ButtonLink name="Go to task" link={routes.todo.value} />
     </Container>
   )
 }
