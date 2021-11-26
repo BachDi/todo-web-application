@@ -5,7 +5,7 @@
 }
 
 body {
-  background: linear-gradient(90deg, rgba(48, 16, 255, 1) 0%, rgba(100, 115, 255, 1) 100%);
+  /* background: linear-gradient(90deg, rgba(48, 16, 255, 1) 0%, rgba(100, 115, 255, 1) 100%); */
   line-height: 1.5;
 }
 .todo-app {
@@ -32,6 +32,12 @@ h1 {
 
 .todo-form {
   margin-bottom: 32px;
+}
+
+.select-list {
+  width: 320px !important;
+  margin: auto;
+  display: inline-block !important;
 }
 
 .todo-input {

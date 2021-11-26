@@ -6,6 +6,7 @@ import { useStores } from 'stores'
 import { observer } from 'mobx-react'
 import Todo from 'components/Todo'
 import { Form } from 'react-bootstrap'
+import dayjs from 'dayjs'
 
 function TodoUser() {
   const { taskStore, authStore, projectStore } = useStores()
@@ -15,25 +16,27 @@ function TodoUser() {
   const { projects } = projectStore
   function getDate(todo: ITask) {
     return {
-      startDate: new Date(todo?.startDate ?? '') || new Date(),
-      dueDate: new Date(todo?.dueDate ?? '') || new Date()
+      startDate: dayjs(todo?.startDate).toDate(),
+      dueDate: dayjs(todo?.dueDate).toDate()
     }
   }
 
-  const addTodo = (todo: ITask) => {
-    taskStore.addTask({ ...todo, projectId, ...getDate(todo), assigneeTo: user.id, createdBy: user.id })
-    user?.id && taskStore.getList({ where: { assigneeTo: user.id }, include: [{ relation: 'project' }] })
+  async function addTodo(todo: ITask) {
+    await taskStore.addTask({ ...todo, projectId, ...getDate(todo), assigneeTo: user.id, createdBy: user.id })
+    fetchData()
   }
 
-  const updateTodo = (todoId: string, todoData: ITask) => {
-    taskStore.editTask(todoId, { ...todoData, ...getDate(todoData) })
+  async function updateTodo(todoId: string, todoData: ITask) {
+    await taskStore.editTask(todoId, { ...todoData, ...getDate(todoData) })
+    fetchData()
   }
 
-  const removeTodo = (id: string) => {
+  async function removeTodo(id: string) {
     updateTodo(id, { isDeleted: true })
+    fetchData()
   }
 
-  const completeTodo = (id: string) => {
+  async function completeTodo(id: string) {
     updateTodo(id, { status: 'done' })
   }
   useEffect(() => {
@@ -41,17 +44,21 @@ function TodoUser() {
     projectStore.getList()
   }, [])
 
-  useEffect(() => {
+  async function fetchData() {
     if (user?.id) {
-      taskStore.getList({ where: { assigneeTo: user.id }, include: [{ relation: 'project' }] })
+      await taskStore.getList({ where: { assigneeTo: user.id }, include: [{ relation: 'project' }] })
     }
+  }
+
+  useEffect(() => {
+    fetchData()
   }, [user])
 
   return (
     <div className="todo-app">
       <h1>Project Name</h1>
       <Form.Select
-        className="mt-2"
+        className="select-list"
         aria-label="Default select example"
         onChange={(event) => setProjectId(event.target.value)}
       >

@@ -47,6 +47,7 @@ class ProjectStore {
       toast.success('Add User successfully')
     } catch (error) {
       console.log(error)
+      toast.error('Add User failed')
     }
   }
 }

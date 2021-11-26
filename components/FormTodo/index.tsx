@@ -1,8 +1,12 @@
 import dayjs from 'dayjs'
 import React, { useEffect } from 'react'
+import { Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
+import { useStores } from 'stores'
 
 const FormTodo = (props) => {
+  const { projectStore } = useStores()
+  const { projects } = projectStore
   const { edit } = props
   const {
     register,
@@ -15,6 +19,10 @@ const FormTodo = (props) => {
   //   setInput(data)
   //   reset()
   // }
+
+  useEffect(() => {
+    projectStore.getList()
+  }, [])
 
   useEffect(() => {
     reset({
@@ -33,6 +41,20 @@ const FormTodo = (props) => {
         <div>
           <label className="todo-label">Description: </label>
           <input className="todo-input" {...register('description')} />
+        </div>
+        <div>
+          <label className="todo-label">Description: </label>
+          <Form.Select className="select-list" aria-label="Default select example" {...register('projectId')}>
+            <option>Select Project</option>
+            {Array.isArray(projects) &&
+              projects.map((project) => {
+                return (
+                  <option key={project.id} value={project.id}>
+                    {project.name}
+                  </option>
+                )
+              })}
+          </Form.Select>
         </div>
 
         <div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { RiCloseCircleLine } from 'react-icons/ri'
-import { TiEdit } from 'react-icons/ti'
+import { TiEdit, TiInputChecked } from 'react-icons/ti'
 import FormTodo from 'components/FormTodo'
 import { ITask } from 'interfaces/task'
 
@@ -35,24 +35,22 @@ const Todo = (props: ITodoProps) => {
     return <FormTodo edit={edit} onSubmit={submitUpdate} />
   }
 
-  function handleClickComplete() {
-    if (edit?.id) {
-      completeTodo(edit.id)
-    }
-  }
-
   return (
     <>
+      <div className="todo-row">
+        <div>Task Name</div>
+        <div>Description</div>
+        <div>Project Name</div>
+        <div>Actions</div>
+      </div>
       {Array.isArray(todoList) && todoList.length > 0
         ? todoList.map((todo) => (
-            <div className={todo.isComplete ? 'todo-row complete' : 'todo-row'} key={todo.id}>
-              <div onClick={handleClickComplete}>{todo.name}</div>
-
-              <div onClick={handleClickComplete}>{todo.description}</div>
-
-              <div onClick={handleClickComplete}>{todo?.project?.name ?? ''}</div>
-
+            <div className={todo.status === 'done' ? 'todo-row complete' : 'todo-row'} key={todo.id}>
+              <div>{todo.name}</div>
+              <div>{todo.description}</div>
+              <div>{todo?.project?.name ?? ''}</div>
               <div className="icons">
+                <TiInputChecked onClick={() => completeTodo(todo?.id ?? '')} />
                 <RiCloseCircleLine onClick={() => removeTodo(todo?.id ?? '')} className="delete-icon" />
                 <TiEdit
                   onClick={() =>

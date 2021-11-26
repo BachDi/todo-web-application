@@ -69,7 +69,11 @@ export default class AuthStore {
         }
         this.getMyUser()
       }
-      router.push(routes.todo.value)
+      if (this.user.role === 'admin') {
+        router.push(routes.project.value)
+      } else {
+        router.push(routes.todo.value)
+      }
     } catch (error: any) {
       //*INFO: Catch clause variable type annotation must be 'any' or 'unknown' if specified
       if (error.message === EServerErrorMessage.PASSWORD_INVALID) {

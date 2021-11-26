@@ -1,7 +1,7 @@
 import React from 'react'
 import Project from 'components/Project'
-const Todo = () => {
+const ProjectPage = () => {
   return <Project />
 }
 
-export default Todo
+export default ProjectPage

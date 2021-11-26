@@ -1,27 +1,15 @@
+import ButtonLink from 'components/ButtonLink'
 import { observer } from 'mobx-react'
-import { useEffect } from 'react'
-import { useStores } from 'stores'
+import React from 'react'
+import routes from 'routes'
 
 const HomePage = () => {
-  const { testStore, taskStore } = useStores()
-  const { status } = testStore
-  const { tasks } = taskStore
-  console.log('tasks', tasks)
-
-  function toggleStatus() {
-    testStore.toggleStatus()
-    taskStore.getList()
-  }
-
-  useEffect(() => {
-    taskStore.getList()
-  }, [])
-
-  console.log(status)
   return (
     <div>
-      <p>This is HomePage. Status: {status.toString()}</p>
-      <button onClick={toggleStatus}>Toggle Status</button>
+      <ButtonLink name="Admin" link={routes.project.value} />
+      <ButtonLink name="Task" link={routes.todo.value} />
+      <ButtonLink name="Sign up" link={routes.signUp.value} />
+      <ButtonLink name="Log in" link={routes.login.value} />
     </div>
   )
 }

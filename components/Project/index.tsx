@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import TodoList from 'components/TodoList'
 import { Button, Container, Row, Form, Card } from 'react-bootstrap'
 import { observer } from 'mobx-react'
@@ -8,6 +8,8 @@ import { IProject } from 'interfaces/project'
 import { IUser } from 'interfaces/user'
 import uniqBy from 'lodash/uniqBy'
 import { toast } from 'react-toastify'
+import routes from 'routes'
+import ButtonLink from 'components/ButtonLink'
 
 const Project = () => {
   const [name, setName] = useState('')
@@ -141,6 +143,7 @@ const Project = () => {
           </Card.Body>
         </Card>
       </Row>
+      <ButtonLink name="Go to task" link={routes.todo.value} />
     </Container>
   )
 }
