@@ -1,13 +1,16 @@
 import dayjs from 'dayjs'
+import { IUser } from 'interfaces/user'
 import { observer } from 'mobx-react-lite'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { useStores } from 'stores'
+import { getValidArray } from 'utils/common'
 
 const FormTodo = (props) => {
   const { userStore } = useStores()
   const { users } = userStore
+  const [usersList, setUsersList] = useState<IUser[]>([])
   const { edit, onSubmit, todoList: tasks, projectId } = props
   const {
     register,
@@ -22,8 +25,17 @@ const FormTodo = (props) => {
   // }
 
   useEffect(() => {
-    userStore.getList({ where: { projectId, isDeleted: { neq: true } } })
-  }, [])
+    userStore.getList({ where: { isDeleted: { neq: true } }, include: [{ relation: 'projectUsers' }] })
+  }, [projectId])
+
+  useEffect(() => {
+    const validUser: IUser[] = projectId
+      ? users.filter((user) =>
+          getValidArray(user?.projectUsers).some((projectUser) => projectUser.projectId === projectId)
+        )
+      : users
+    setUsersList(validUser)
+  }, [users])
 
   useEffect(() => {
     reset({
@@ -61,8 +73,8 @@ const FormTodo = (props) => {
           <label className="todo-label">Assign To: </label>
           <Form.Select className="select-list" aria-label="Default select example" {...register('assigneeTo')}>
             <option value={undefined}>No Assign</option>
-            {Array.isArray(users) &&
-              users.map((user) => {
+            {Array.isArray(usersList) &&
+              usersList.map((user) => {
                 return (
                   <option key={user.id} value={user.id}>
                     {user?.name ?? user.username}

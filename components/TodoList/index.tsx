@@ -57,9 +57,10 @@ function TodoList(props: IToDoListProps) {
   return (
     <>
       <h1>{`Add task to Project`}</h1>
-      <FormTodo onSubmit={addTodo} />
+      <FormTodo onSubmit={addTodo} projectId={projectId} />
       <Todo
         todoList={tasks}
+        projectId={projectId}
         completeTodo={completeTodo}
         unCompleteTodo={unCompleteTodo}
         removeTodo={removeTodo}

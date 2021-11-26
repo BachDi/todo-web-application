@@ -54,9 +54,7 @@ const Project = () => {
   }, [selectedProject, projects])
 
   useEffect(() => {
-    userStore.getList({
-      where: { isDeleted: { neq: true } }
-    })
+    userStore.getList({ where: { isDeleted: { neq: true } } })
   }, [selectedUser])
 
   return (

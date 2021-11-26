@@ -6,13 +6,14 @@ import { ITask } from 'interfaces/task'
 
 export interface ITodoProps {
   todoList: ITask[]
+  projectId: string
   completeTodo: (id: string) => void
   unCompleteTodo: (id: string) => void
   removeTodo: (id: string) => void
   updateTodo: (id: string, todoData: ITask) => void
 }
 const Todo = (props: ITodoProps) => {
-  const { todoList, completeTodo, removeTodo, updateTodo, unCompleteTodo } = props
+  const { todoList, completeTodo, removeTodo, updateTodo, unCompleteTodo, projectId } = props
   const [edit, setEdit] = useState<ITask>({
     id: undefined,
     description: '',
@@ -33,7 +34,7 @@ const Todo = (props: ITodoProps) => {
   }
 
   if (edit.id) {
-    return <FormTodo edit={edit} onSubmit={submitUpdate} />
+    return <FormTodo edit={edit} onSubmit={submitUpdate} projectId={projectId} />
   }
 
   return (

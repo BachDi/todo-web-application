@@ -49,7 +49,7 @@ function TodoUser() {
   async function fetchData() {
     if (user?.id) {
       await taskStore.getList({
-        where: { assigneeTo: user.id, projectId, isDeleted: { neq: true } },
+        where: { assigneeTo: user.id, isDeleted: { neq: true } },
         include: [{ relation: 'project' }, { relation: 'assignee' }, { relation: 'parent' }]
       })
     }
@@ -80,6 +80,7 @@ function TodoUser() {
       <h1>{`Add task to Project`}</h1>
       <FormTodo onSubmit={addTodo} todoList={tasks} projectId={projectId} />
       <Todo
+        projectId={projectId}
         todoList={tasks}
         completeTodo={completeTodo}
         removeTodo={removeTodo}
