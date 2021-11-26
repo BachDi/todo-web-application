@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { RiCloseCircleLine } from 'react-icons/ri'
-import { TiEdit, TiInputChecked } from 'react-icons/ti'
+import { TiEdit, TiInputChecked, TiInputCheckedOutline } from 'react-icons/ti'
 import FormTodo from 'components/FormTodo'
 import { ITask } from 'interfaces/task'
 
 export interface ITodoProps {
   todoList: ITask[]
   completeTodo: (id: string) => void
+  unCompleteTodo: (id: string) => void
   removeTodo: (id: string) => void
   updateTodo: (id: string, todoData: ITask) => void
 }
 const Todo = (props: ITodoProps) => {
-  const { todoList, completeTodo, removeTodo, updateTodo } = props
+  const { todoList, completeTodo, removeTodo, updateTodo, unCompleteTodo } = props
   const [edit, setEdit] = useState<ITask>({
     id: undefined,
     description: '',
@@ -54,7 +55,11 @@ const Todo = (props: ITodoProps) => {
               <div>{todo?.assignee?.name ?? 'No One'}</div>
               <div>{todo?.parent?.name ?? 'No Parent'}</div>
               <div className="icons">
-                <TiInputChecked onClick={() => completeTodo(todo?.id ?? '')} />
+                {todo.status === 'done' ? (
+                  <TiInputChecked onClick={() => unCompleteTodo(todo?.id ?? '')} />
+                ) : (
+                  <TiInputCheckedOutline onClick={() => completeTodo(todo?.id ?? '')} />
+                )}
                 <RiCloseCircleLine onClick={() => removeTodo(todo?.id ?? '')} className="delete-icon" />
                 <TiEdit
                   onClick={() =>

@@ -38,6 +38,9 @@ function TodoUser() {
   async function completeTodo(id: string) {
     updateTodo(id, { status: 'done' })
   }
+  async function unCompleteTodo(id: string) {
+    updateTodo(id, { status: 'doing' })
+  }
   useEffect(() => {
     authStore.getMyUser()
     projectStore.getList()
@@ -76,7 +79,13 @@ function TodoUser() {
       </Form.Select>
       <h1>{`Add task to Project`}</h1>
       <FormTodo onSubmit={addTodo} />
-      <Todo todoList={tasks} completeTodo={completeTodo} removeTodo={removeTodo} updateTodo={updateTodo} />
+      <Todo
+        todoList={tasks}
+        completeTodo={completeTodo}
+        removeTodo={removeTodo}
+        updateTodo={updateTodo}
+        unCompleteTodo={unCompleteTodo}
+      />
     </div>
   )
 }

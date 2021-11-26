@@ -39,6 +39,10 @@ function TodoList(props: IToDoListProps) {
   async function completeTodo(id: string) {
     updateTodo(id, { status: 'done' })
   }
+
+  async function unCompleteTodo(id: string) {
+    updateTodo(id, { status: 'doing' })
+  }
   async function fetchData() {
     await taskStore.getList({
       where: { isDelete: { neq: true }, projectId },
@@ -54,7 +58,13 @@ function TodoList(props: IToDoListProps) {
     <>
       <h1>{`Add task to Project`}</h1>
       <FormTodo onSubmit={addTodo} />
-      <Todo todoList={tasks} completeTodo={completeTodo} removeTodo={removeTodo} updateTodo={updateTodo} />
+      <Todo
+        todoList={tasks}
+        completeTodo={completeTodo}
+        unCompleteTodo={unCompleteTodo}
+        removeTodo={removeTodo}
+        updateTodo={updateTodo}
+      />
     </>
   )
 }
