@@ -54,7 +54,7 @@ const Todo = (props: ITodoProps) => {
           </div>
 
           <div key={todo.id} onClick={handleClickComplete}>
-            Project Name
+            {todo?.project?.name ?? ''}
           </div>
 
           <div className="icons">

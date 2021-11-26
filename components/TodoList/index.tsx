@@ -2,46 +2,39 @@ import React, { useState } from 'react';
 import Todo from '../Todo';
 import FormTodo from 'components/FormTodo';
 import { ITask } from 'interfaces/task';
+import { useStores } from 'stores';
 
-function TodoList() {
-  const [todoList, setTodoList] = useState<ITask[]>([]);
+export interface IToDoListProps {
+  projectId: string
+}
+
+function TodoList(props: IToDoListProps) {
+  const { projectId } = props
+  const { taskStore } = useStores()
+  const { tasks } = taskStore
 
   const addTodo = (todo: ITask) => {
-    const newTodoList = [...todoList, todo];
-    setTodoList(newTodoList);
-    console.log(...todoList);
+    taskStore.addTask({...todo, projectId, startDate: new Date(todo?.startDate ?? ''), dueDate: new Date(todo?.dueDate ?? '')})
   };
 
   const updateTodo = (todoId: string, newValue) => {
-    setTodoList(prev => prev.map(item => (item.id === todoId ? newValue : item)));
+    taskStore.editTask(todoId, newValue)
   };
 
   const removeTodo = (id: string) => {
-    const removedArr = [...todoList].map(todo => {
-      if (todo.id === id) {
-        todo.isDeleted = true
-      }
-      return todo;
-    });
-    setTodoList(removedArr);
+    updateTodo(id, { isDeleted: true })
   };
 
   const completeTodo = (id: string) => {
-    let updatedTodoList = todoList.map(todo => {
-      if (todo.id === id) {
-        todo.status = 'done';
-      }
-      return todo;
-    });
-    setTodoList(updatedTodoList);
+    updateTodo(id, { status: 'done' })
   };
 
   return (
     <>
-      <h1>{`What's the task?`}</h1>
+      <h1>{`Add task to Project`}</h1>
       <FormTodo onSubmit={addTodo} />
       <Todo
-        todoList={todoList}
+        todoList={tasks}
         completeTodo={completeTodo}
         removeTodo={removeTodo}
         updateTodo={updateTodo}

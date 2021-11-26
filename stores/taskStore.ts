@@ -1,4 +1,5 @@
-import { createTask, getTaskDetail, getTasks } from 'API/task'
+import { toast } from 'react-toastify';
+import { createTask, getTaskDetail, getTasks, updateTask } from 'API/task'
 import { ITask } from 'interfaces/task'
 import { makeAutoObservable } from 'mobx'
 import { RootStore } from 'stores'
@@ -13,8 +14,8 @@ class TaskStore {
   tasks: ITask[] = []
   taskDetail: ITask = {}
 
-  async getList() {
-    this.tasks = await getTasks()
+  async getList(filter?: any) {
+    this.tasks = await getTasks(filter)
   }
 
   async getDetail(id: string) {
@@ -25,8 +26,21 @@ class TaskStore {
     try {
       const result = await createTask(task)
       this.tasks = [...this.tasks, result]
+      toast.success("Create Task Successfully")
     } catch (error) {
       console.log(error)
+      toast.success("Create Task Error")
+    }
+  }
+
+  async editTask(taskId, task: ITask) {
+    try {
+      const result = await updateTask(taskId, task)
+      this.getList()
+      toast.success("Edit Task Successfully")
+    } catch (error) {
+      console.log(error)
+      toast.success("Edit Task Error")
     }
   }
 }

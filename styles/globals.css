@@ -11,12 +11,10 @@ body {
 .todo-app {
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  width: 520px;
-  min-height: 600px;
+  width: 100%;
   background: #161a2b;
   text-align: center;
-  margin: 128px auto;
+  margin: auto;
   border-radius: 10px;
   padding-bottom: 32px;
 }
@@ -49,6 +47,7 @@ h1 {
 
 .todo-label {
   color: #fff;
+  min-width: 100px;
 }
 
 .todo-input::placeholder {
