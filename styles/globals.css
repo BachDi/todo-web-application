@@ -4,14 +4,19 @@
   box-sizing: border-box;
 }
 
-body {
-  /* background: linear-gradient(90deg, rgba(48, 16, 255, 1) 0%, rgba(100, 115, 255, 1) 100%); */
+body {  /* background: linear-gradient(90deg, rgba(48, 16, 255, 1) 0%, rgba(100, 115, 255, 1) 100%); */
   line-height: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to right, lightblue , pink);
+  min-height: 100vh;
+  margin: 0;
 }
 .todo-app {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 800px;
   background: #161a2b;
   text-align: center;
   margin: auto;
@@ -126,4 +131,94 @@ h1 {
 
 .edit-icon {
   color: #fff;
+}
+
+.w-50.mt-4.container-fluid {
+  width: 800px !important;
+}
+
+.form-container {
+  padding: 20px 40px;
+  border: 3px solid gray;
+  border-radius: 10px;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+  background-color: #607d8b;
+}
+
+.form-group {
+  color: white
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container a {
+  margin: 10px;
+  color: #00f3ff;
+  font-weight: bold;
+  text-decoration: none;
+}
+.form-container a:hover {
+  text-decoration: underline;
+  transition: 0.3s;
+}
+
+.form-container h1 {
+  text-align: center;
+  text-shadow: 2px 2px 4px midnightblue;
+}
+
+.form-container button {
+  margin-top: 25px;
+  margin-bottom: 5px;
+  padding: 10px 15px;
+
+  background-color: green;
+  border: 1px solid darkgreen;
+  color: white;
+  border-radius: 6px;
+
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.form-group {
+  margin-bottom: 5px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  color: white;
+}
+
+.form-group input {
+  width: 200px;
+  padding: 4px 10px;
+}
+
+.radio-group {
+  align-self: flex-start;
+}
+
+.radio-group label:hover {
+  cursor: pointer;
+}
+
+.radio-group input {
+  margin: 5px 5px 6px 5px;
+}
+
+.checkbox-group {
+  display: flex;
+}
+
+.checkbox-group input {
+  margin: 6px 5px 6px 5px;
 }

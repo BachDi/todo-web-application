@@ -8,7 +8,7 @@ const HomePage = () => {
     <div>
       <ButtonLink name="Admin" link={routes.project.value} />
       <ButtonLink name="Task" link={routes.todo.value} />
-      <ButtonLink name="Sign up" link={routes.signUp.value} />
+      <ButtonLink name="Sign up" link={routes.signup.value} />
       <ButtonLink name="Log in" link={routes.login.value} />
     </div>
   )

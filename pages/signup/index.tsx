@@ -14,37 +14,34 @@ const SignUp = () => {
     console.log({ username, password, name, role })
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <p>Sign Up</p>
-      <label htmlFor="username">
-        username:
-        <input value={username} onChange={(e) => setUsername(e.target.value)} name="username" type="username" />
-      </label>
-      <br />
+    <div className="form-container">
+      <form onSubmit={handleSubmit}>
+        <h1>Sign Up</h1>
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input value={username} onChange={(e) => setUsername(e.target.value)} name="username" type="username" />
+        </div>
 
-      <label htmlFor="password">
-        password:
-        <input value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" />
-      </label>
-      <br />
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" />
+        </div>
 
-      <label htmlFor="name">
-        name:
-        <input value={name} onChange={(e) => setName(e.target.value)} name="name" type="input" />
-      </label>
-      <br />
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
+          <input value={name} onChange={(e) => setName(e.target.value)} name="name" type="input" />
+        </div>
 
-      <label htmlFor="role">
-        role
-        <input value="user" onChange={(e) => setRole(e.target.value)} name="role" type="radio" id="user" />
-        <label htmlFor="user">User</label>
-        <input value="admin" onChange={(e) => setRole(e.target.value)} name="role" type="radio" id="admin" />
-        <label htmlFor="admin">Admin</label>
-      </label>
-      <br />
-
-      <input type="submit" value="Submit" />
-    </form>
+        <div className="radio-group">
+          <label htmlFor="role">Role:</label>
+          <input value="user" onChange={(e) => setRole(e.target.value)} name="role" type="radio" id="user" />
+          <label htmlFor="user">User</label>
+          <input value="admin" onChange={(e) => setRole(e.target.value)} name="role" type="radio" id="admin" />
+          <label htmlFor="admin">Admin</label>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   )
 }
 

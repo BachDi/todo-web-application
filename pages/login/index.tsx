@@ -10,26 +10,27 @@ const Login = () => {
     authStore.login({ username, password })
   }
   return (
-    <form onSubmit={handleSubmit}>
-      <p>Login</p>
-      <label htmlFor="username">
-        username:
-        <input value={username} onChange={(e) => setUsername(e.target.value)} name="username" type="text" />
-      </label>
-      <br />
+    <div className="form-container">
+      <form onSubmit={handleSubmit}>
+        <h1>Login</h1>
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input value={username} onChange={(e) => setUsername(e.target.value)} name="username" type="text" />
+        </div>
 
-      <label htmlFor="password">
-        password:
-        <input value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" />
-      </label>
-      <br />
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input value={password} onChange={(e) => setPassword(e.target.value)} name="password" type="password" />
+        </div>
 
-      <input type="checkbox" name="isRemember" id="isRemember" />
-      <label htmlFor="isRemember">Remember account</label>
-      <br />
+        <div className="checkbox-group">
+          <input type="checkbox" name="isRemember" id="isRemember" />
+          <label htmlFor="isRemember">Remember account</label>
+        </div>
 
-      <input type="submit" value="Submit" />
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   )
 }
 

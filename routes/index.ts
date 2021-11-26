@@ -8,7 +8,7 @@ const routes = {
   project: {
     value: '/project'
   },
-  signUp: {
+  signup: {
     value: '/signup'
   },
   login: {
