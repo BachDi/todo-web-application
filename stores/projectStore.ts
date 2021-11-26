@@ -17,6 +17,7 @@ class ProjectStore {
 
   async getList() {
     this.projects = await getProjects({
+      where: { isDeleted: { neq: true } },
       include: [
         {
           relation: 'projectUsers',

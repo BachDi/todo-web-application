@@ -6,10 +6,9 @@ import { useForm } from 'react-hook-form'
 import { useStores } from 'stores'
 
 const FormTodo = (props) => {
-  const { taskStore, userStore } = useStores()
-  const { tasks } = taskStore
+  const { userStore } = useStores()
   const { users } = userStore
-  const { edit } = props
+  const { edit, onSubmit, todoList: tasks, projectId } = props
   const {
     register,
     handleSubmit,
@@ -23,8 +22,7 @@ const FormTodo = (props) => {
   // }
 
   useEffect(() => {
-    taskStore.getList()
-    userStore.getList()
+    userStore.getList({ where: { projectId, isDeleted: { neq: true } } })
   }, [])
 
   useEffect(() => {
@@ -36,7 +34,7 @@ const FormTodo = (props) => {
   }, [edit])
   return (
     <div className="form">
-      <form onSubmit={handleSubmit(props.onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label className="todo-label">Name: </label>
           <input className="todo-input" {...register('name', { required: true })} />

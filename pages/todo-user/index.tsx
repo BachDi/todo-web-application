@@ -49,7 +49,7 @@ function TodoUser() {
   async function fetchData() {
     if (user?.id) {
       await taskStore.getList({
-        where: { assigneeTo: user.id },
+        where: { assigneeTo: user.id, projectId, isDeleted: { neq: true } },
         include: [{ relation: 'project' }, { relation: 'assignee' }, { relation: 'parent' }]
       })
     }
@@ -78,7 +78,7 @@ function TodoUser() {
           })}
       </Form.Select>
       <h1>{`Add task to Project`}</h1>
-      <FormTodo onSubmit={addTodo} />
+      <FormTodo onSubmit={addTodo} todoList={tasks} projectId={projectId} />
       <Todo
         todoList={tasks}
         completeTodo={completeTodo}
