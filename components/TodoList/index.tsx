@@ -24,7 +24,7 @@ function TodoList(props: IToDoListProps) {
 
   async function addTodo(todo: ITask) {
     await taskStore.addTask({
-      ...omit(todo, ['assignee', 'project', 'startDate', 'dueDate']),
+      ...omit(todo, ['assignee', 'project', 'parent', 'startDate', 'dueDate']),
       projectId,
       ...getDate(todo)
     })
@@ -33,7 +33,7 @@ function TodoList(props: IToDoListProps) {
 
   async function updateTodo(todoId: string, todoData: ITask) {
     await taskStore.editTask(todoId, {
-      ...omit(todoData, ['assignee', 'project', 'startDate', 'dueDate']),
+      ...omit(todoData, ['assignee', 'project', 'parent', 'startDate', 'dueDate']),
       ...getDate(todoData),
       updatedAt: new Date()
     })

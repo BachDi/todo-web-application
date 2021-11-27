@@ -8,8 +8,6 @@ import Todo from 'components/Todo'
 import { Form } from 'react-bootstrap'
 import dayjs from 'dayjs'
 import omit from 'lodash/omit'
-import flatten from 'lodash/flatten'
-import { getValidArray } from 'utils/common'
 
 function TodoUser() {
   const { taskStore, authStore, projectStore, userStore } = useStores()
@@ -27,7 +25,7 @@ function TodoUser() {
 
   async function addTodo(todo: ITask) {
     await taskStore.addTask({
-      ...omit(todo, ['assignee', 'project', 'startDate', 'dueDate']),
+      ...omit(todo, ['assignee', 'project', 'parent', 'startDate', 'dueDate']),
       projectId,
       ...getDate(todo),
       assigneeTo: user.id
@@ -37,7 +35,7 @@ function TodoUser() {
 
   async function updateTodo(todoId: string, todoData: ITask) {
     await taskStore.editTask(todoId, {
-      ...omit(todoData, ['assignee', 'project', 'startDate', 'dueDate']),
+      ...omit(todoData, ['assignee', 'project', 'parent', 'startDate', 'dueDate']),
       ...getDate(todoData),
       updatedAt: new Date()
     })
