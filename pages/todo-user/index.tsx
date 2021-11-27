@@ -7,7 +7,7 @@ import { observer } from 'mobx-react'
 import Todo from 'components/Todo'
 import { Form } from 'react-bootstrap'
 import dayjs from 'dayjs'
-import { omit } from 'lodash'
+import omit from 'lodash/omit'
 
 function TodoUser() {
   const { taskStore, authStore, projectStore } = useStores()

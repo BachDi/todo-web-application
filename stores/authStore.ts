@@ -51,6 +51,9 @@ export default class AuthStore {
       if (currentToken) {
         const currentUser = await getUserDetail()
         this.user = currentUser
+      } else {
+        toast.error('Something may wrong, please login again !')
+        router.push(routes.login.value)
       }
     } catch (error) {
       toast.error('Something may wrong, please try again !')

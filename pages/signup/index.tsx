@@ -1,20 +1,30 @@
 import { signUp } from 'API/authenticate'
+import router from 'next/router'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify'
+import routes from 'routes'
 
 const SignUp = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [role, setRole] = useState('')
-  // TODO: sẽ làm xác nhận sau // const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  function handleSubmit() {
-    signUp({ username, password, name, role })
-    console.log({ username, password, name, role })
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    try {
+      const newUser = await signUp({ username, password, name, role })
+      if (newUser) {
+        toast.success('Create User Successfully')
+        router.push(routes.login.value)
+      }
+    } catch (error) {
+      toast.error('Create User Fail')
+    }
   }
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
+      <form action="" onSubmit={handleSubmit}>
         <h1>Sign Up</h1>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
