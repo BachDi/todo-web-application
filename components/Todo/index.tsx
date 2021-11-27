@@ -3,6 +3,7 @@ import { RiCloseCircleLine } from 'react-icons/ri'
 import { TiEdit, TiInputChecked, TiInputCheckedOutline } from 'react-icons/ti'
 import FormTodo from 'components/FormTodo'
 import { ITask } from 'interfaces/task'
+import { useStores } from 'stores'
 
 export interface ITodoProps {
   todoList: ITask[]
@@ -13,6 +14,8 @@ export interface ITodoProps {
   updateTodo: (id: string, todoData: ITask) => void
 }
 const Todo = (props: ITodoProps) => {
+  const { taskStore } = useStores()
+  const { tasks } = taskStore
   const { todoList, completeTodo, removeTodo, updateTodo, unCompleteTodo, projectId } = props
   const [edit, setEdit] = useState<ITask>({
     id: undefined,
@@ -34,7 +37,7 @@ const Todo = (props: ITodoProps) => {
   }
 
   if (edit.id) {
-    return <FormTodo edit={edit} onSubmit={submitUpdate} projectId={projectId} />
+    return <FormTodo edit={edit} onSubmit={submitUpdate} projectId={projectId} todoList={tasks} />
   }
 
   return (
