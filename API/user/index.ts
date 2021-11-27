@@ -25,7 +25,7 @@ export async function getUserDetail(userId: string): Promise<any> {
 
 export async function createUser(user: IUser): Promise<IUser> {
   try {
-    const response = await api.post(`/users/`, user, {
+    const response = await api.post(`/users`, user, {
       headers: auth()
     })
     return response.data

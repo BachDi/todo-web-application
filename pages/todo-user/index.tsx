@@ -59,7 +59,7 @@ function TodoUser() {
   async function fetchData() {
     if (user?.id) {
       await taskStore.getList({
-        where: { isDeleted: { neq: true }, or: [{ assigneeTo: user.id }, { createdBy: user.id }] },
+        where: { isDeleted: { neq: true } },
         include: [{ relation: 'project' }, { relation: 'assignee' }, { relation: 'parent' }]
       })
     }

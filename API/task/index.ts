@@ -25,7 +25,7 @@ export async function getTaskDetail(taskId: string): Promise<any> {
 
 export async function createTask(task: ITask): Promise<ITask> {
   try {
-    const response = await api.post(`/tasks/`, task, {
+    const response = await api.post(`/tasks`, task, {
       headers: auth()
     })
     return response.data

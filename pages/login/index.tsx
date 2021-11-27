@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useStores } from 'stores'
 
 const Login = () => {
@@ -13,6 +13,12 @@ const Login = () => {
   function toggleRemember() {
     setIsRemember(!isRemember)
   }
+  useEffect(() => {
+    if (window) {
+      localStorage.clear()
+      sessionStorage.clear()
+    }
+  }, [])
   return (
     <div className="form-container">
       <form onSubmit={handleSubmit}>

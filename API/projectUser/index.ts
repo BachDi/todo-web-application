@@ -3,7 +3,7 @@ import { api, auth } from 'API'
 
 export async function createProjectUser(projectUser: IProjectUser): Promise<IProjectUser> {
   try {
-    const response = await api.post(`/project-users/`, projectUser, {
+    const response = await api.post(`/project-users`, projectUser, {
       headers: auth()
     })
     return response.data
