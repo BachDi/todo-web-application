@@ -5,6 +5,7 @@ import { ITask } from 'interfaces/task'
 import { useStores } from 'stores'
 import { observer } from 'mobx-react'
 import dayjs from 'dayjs'
+import omit from 'lodash/omit'
 
 export interface IToDoListProps {
   projectId: string
@@ -12,9 +13,8 @@ export interface IToDoListProps {
 
 function TodoList(props: IToDoListProps) {
   const { projectId } = props
-  const { taskStore, authStore } = useStores()
+  const { taskStore } = useStores()
   const { tasks } = taskStore
-  const { user } = authStore
   function getDate(todo: ITask) {
     return {
       startDate: dayjs(todo?.startDate).toDate(),
@@ -23,12 +23,20 @@ function TodoList(props: IToDoListProps) {
   }
 
   async function addTodo(todo: ITask) {
-    await taskStore.addTask({ ...todo, projectId, ...getDate(todo), createdBy: user.id })
+    await taskStore.addTask({
+      ...omit(todo, ['assignee', 'project', 'startDate', 'dueDate']),
+      projectId,
+      ...getDate(todo)
+    })
     fetchData()
   }
 
   async function updateTodo(todoId: string, todoData: ITask) {
-    await taskStore.editTask(todoId, { ...todoData, ...getDate(todoData), updatedAt: new Date() })
+    await taskStore.editTask(todoId, {
+      ...omit(todoData, ['assignee', 'project', 'startDate', 'dueDate']),
+      ...getDate(todoData),
+      updatedAt: new Date()
+    })
     fetchData()
   }
 

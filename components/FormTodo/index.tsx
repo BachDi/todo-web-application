@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { ITask } from 'interfaces/task'
 import { IUser } from 'interfaces/user'
 import { observer } from 'mobx-react-lite'
 import React, { useEffect, useState } from 'react'
@@ -7,24 +8,18 @@ import { useForm } from 'react-hook-form'
 import { useStores } from 'stores'
 import { getValidArray } from 'utils/common'
 
-const FormTodo = (props) => {
+interface IFormTodoProps {
+  edit?: ITask
+  onSubmit: (data: any) => void
+  todoList: ITask[]
+  projectId: string
+}
+const FormTodo = (props: IFormTodoProps) => {
   const { userStore } = useStores()
   const { users } = userStore
   const [usersList, setUsersList] = useState<IUser[]>([])
   const { edit, onSubmit, todoList: tasks, projectId } = props
-  const {
-    register,
-    handleSubmit,
-    // formState: { errors },
-    reset
-  } = useForm()
-  // const onSubmit = data => {
-  //   console.log(data);
-  //   setInput(data)
-  //   reset()
-  // }
-
-  console.log('hello', tasks)
+  const { register, handleSubmit, reset } = useForm()
 
   useEffect(() => {
     userStore.getList({ where: { isDeleted: { neq: true } }, include: [{ relation: 'projectUsers' }] })
@@ -62,13 +57,15 @@ const FormTodo = (props) => {
           <Form.Select className="select-list" aria-label="Default select example" {...register('parentId')}>
             <option value={undefined}>No Parent Task</option>
             {Array.isArray(tasks) &&
-              tasks.map((task) => {
-                return (
-                  <option key={task.id} value={task.id}>
-                    {task.name}
-                  </option>
-                )
-              })}
+              tasks
+                .filter((task) => task.id !== edit?.id ?? '')
+                .map((task) => {
+                  return (
+                    <option key={task.id} value={task.id}>
+                      {task.name}
+                    </option>
+                  )
+                })}
           </Form.Select>
         </div>
         <div>

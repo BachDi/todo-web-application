@@ -7,6 +7,7 @@ import { observer } from 'mobx-react'
 import Todo from 'components/Todo'
 import { Form } from 'react-bootstrap'
 import dayjs from 'dayjs'
+import { omit } from 'lodash'
 
 function TodoUser() {
   const { taskStore, authStore, projectStore } = useStores()
@@ -22,12 +23,21 @@ function TodoUser() {
   }
 
   async function addTodo(todo: ITask) {
-    await taskStore.addTask({ ...todo, projectId, ...getDate(todo), assigneeTo: user.id, createdBy: user.id })
+    await taskStore.addTask({
+      ...omit(todo, ['assignee', 'project', 'startDate', 'dueDate']),
+      projectId,
+      ...getDate(todo),
+      assigneeTo: user.id
+    })
     fetchData()
   }
 
   async function updateTodo(todoId: string, todoData: ITask) {
-    await taskStore.editTask(todoId, { ...todoData, ...getDate(todoData), updatedAt: new Date() })
+    await taskStore.editTask(todoId, {
+      ...omit(todoData, ['assignee', 'project', 'startDate', 'dueDate']),
+      ...getDate(todoData),
+      updatedAt: new Date()
+    })
     fetchData()
   }
 
@@ -49,7 +59,7 @@ function TodoUser() {
   async function fetchData() {
     if (user?.id) {
       await taskStore.getList({
-        where: { assigneeTo: user.id, isDeleted: { neq: true } },
+        where: { isDeleted: { neq: true }, or: [{ assigneeTo: user.id }, { createdBy: user.id }] },
         include: [{ relation: 'project' }, { relation: 'assignee' }, { relation: 'parent' }]
       })
     }

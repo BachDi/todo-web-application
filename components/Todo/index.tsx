@@ -27,12 +27,7 @@ const Todo = (props: ITodoProps) => {
   const submitUpdate = (value) => {
     if (edit?.id) {
       updateTodo(edit.id, value)
-      setEdit({
-        id: undefined,
-        description: '',
-        isActive: true,
-        name: ''
-      })
+      setEdit({})
     }
   }
 
@@ -65,19 +60,7 @@ const Todo = (props: ITodoProps) => {
                   <TiInputCheckedOutline onClick={() => completeTodo(todo?.id ?? '')} />
                 )}
                 <RiCloseCircleLine onClick={() => removeTodo(todo?.id ?? '')} className="delete-icon" />
-                <TiEdit
-                  onClick={() =>
-                    setEdit({
-                      id: todo.id,
-                      name: todo.name,
-                      description: todo.description,
-                      dueDate: todo.dueDate,
-                      isActive: todo.isActive,
-                      startDate: todo.startDate
-                    })
-                  }
-                  className="edit-icon"
-                />
+                <TiEdit onClick={() => setEdit(todo)} className="edit-icon" />
               </div>
             </div>
           ))
