@@ -8,8 +8,7 @@ const SignUp = () => {
   const [role, setRole] = useState('')
   // TODO: sẽ làm xác nhận sau // const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  function handleSubmit(e: { preventDefault: () => void }) {
-    e.preventDefault()
+  function handleSubmit() {
     signUp({ username, password, name, role })
     console.log({ username, password, name, role })
   }
