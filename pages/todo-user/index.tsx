@@ -8,12 +8,15 @@ import Todo from 'components/Todo'
 import { Form } from 'react-bootstrap'
 import dayjs from 'dayjs'
 import omit from 'lodash/omit'
+import flatten from 'lodash/flatten'
+import { getValidArray } from 'utils/common'
 
 function TodoUser() {
-  const { taskStore, authStore, projectStore } = useStores()
+  const { taskStore, authStore, projectStore, userStore } = useStores()
   const [projectId, setProjectId] = useState('')
   const { tasks } = taskStore
   const { user } = authStore
+  const { userDetail } = userStore
   const { projects } = projectStore
   function getDate(todo: ITask) {
     return {
@@ -58,8 +61,41 @@ function TodoUser() {
 
   async function fetchData() {
     if (user?.id) {
+      // TODO: filter task in joined projects
+      // await userStore.getDetail(user.id, {
+      //   include: [
+      //     {
+      //       relation: 'projectUsers',
+      //       scope: {
+      //         include: [
+      //           {
+      //             relation: 'project',
+      //             scope: {
+      //               include: [
+      //                 {
+      //                   relation: 'tasks'
+      //                   // scope: {
+      //                   //   where: { isDeleted: { neq: true } },
+      //                   //   include: [{ relation: 'project' }, { relation: 'assignee' }, { relation: 'parent' }]
+      //                   // }
+      //                 }
+      //               ]
+      //             }
+      //           }
+      //         ]
+      //       }
+      //     }
+      //   ]
+      // })
+
       await taskStore.getList({
-        where: { isDeleted: { neq: true } },
+        where: {
+          isDeleted: { neq: true },
+          // Users only see task is created/assignee by/to them. Or task is created by other user.
+          // Can not see task is created by admin that assign to other users.
+          // This may be a bug. Cause task is get from all instead of by joined project.
+          or: [{ assigneeTo: user.id }, { createdBy: user.id }, { isCreatedByAdmin: false }]
+        },
         include: [{ relation: 'project' }, { relation: 'assignee' }, { relation: 'parent' }]
       })
     }
@@ -68,6 +104,16 @@ function TodoUser() {
   useEffect(() => {
     fetchData()
   }, [user])
+
+  // TODO: get task in joined projects
+  // useEffect(() => {
+  //   if (userDetail) {
+  //     const tasks = getValidArray(userDetail?.projectUsers).map((projectUser) => {
+  //       return getValidArray(projectUser?.project?.tasks)
+  //     })
+  //     taskStore.setTasks(flatten(tasks))
+  //   }
+  // }, [userDetail])
 
   return (
     <div className="todo-app">

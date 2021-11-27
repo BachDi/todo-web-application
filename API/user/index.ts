@@ -12,9 +12,9 @@ export async function getUsers(filter: any = {}): Promise<any> {
   }
 }
 
-export async function getUserDetail(userId: string): Promise<any> {
+export async function getUserDetail(userId: string, filter: any = {}): Promise<any> {
   try {
-    const response = await api.get(`/users/${userId}`, {
+    const response = await api.get(`/users/${userId}?filter=${JSON.stringify(filter)}`, {
       headers: auth()
     })
     return response.data

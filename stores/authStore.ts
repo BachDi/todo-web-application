@@ -70,12 +70,12 @@ export default class AuthStore {
         } else {
           this.setAccessToken(token, false)
         }
-        this.getMyUser()
+        await this.getMyUser()
       }
-      if (this.user.role === 'admin') {
-        router.push(routes.project.value)
-      } else {
+      if (this.user.role === 'user') {
         router.push(routes.todo.value)
+      } else {
+        router.push(routes.project.value)
       }
     } catch (error: any) {
       //*INFO: Catch clause variable type annotation must be 'any' or 'unknown' if specified

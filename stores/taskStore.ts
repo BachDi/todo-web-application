@@ -18,6 +18,10 @@ class TaskStore {
     this.tasks = await getTasks(filter)
   }
 
+  setTasks(tasks: ITask[]) {
+    this.tasks = tasks
+  }
+
   async getDetail(id: string) {
     this.taskDetail = await getTaskDetail(id)
   }

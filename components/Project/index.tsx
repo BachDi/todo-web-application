@@ -17,7 +17,7 @@ const Project = () => {
   const [selectedUser, chooseUser] = useState('')
   const [usersInProject, setUsers] = useState<IUser[]>([])
   console.log(usersInProject)
-  const { projectStore, taskStore, userStore } = useStores()
+  const { projectStore, userStore } = useStores()
   const { projects } = projectStore
   const { users } = userStore
 
@@ -47,7 +47,8 @@ const Project = () => {
         ? projects.find((project) => project.id === selectedProject) ?? { projectUsers: [] }
         : { projectUsers: [] }
     ) as IProject
-    console.log(currentProject)
+
+    // Get user list in project
     const userList: (IUser | undefined)[] =
       (currentProject?.projectUsers ?? []).map((projectUser) => projectUser.user).filter((user) => user?.username) ?? []
     setUsers(uniqBy(userList, 'id') as IUser[])

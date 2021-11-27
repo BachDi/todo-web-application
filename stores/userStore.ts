@@ -18,8 +18,8 @@ class UserStore {
     this.users = await getUsers(filter)
   }
 
-  async getDetail(id: string) {
-    this.userDetail = await getUserDetail(id)
+  async getDetail(id: string, filter: any = {}) {
+    this.userDetail = await getUserDetail(id, filter)
   }
 
   async addUser(user: IUser) {
