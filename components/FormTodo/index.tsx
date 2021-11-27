@@ -24,6 +24,8 @@ const FormTodo = (props) => {
   //   reset()
   // }
 
+  console.log('hello', tasks)
+
   useEffect(() => {
     userStore.getList({ where: { isDeleted: { neq: true } }, include: [{ relation: 'projectUsers' }] })
   }, [projectId])
